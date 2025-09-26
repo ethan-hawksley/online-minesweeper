@@ -8,6 +8,9 @@ export default class GameController {
 
     this.createGrid();
     this.setupTiles();
+
+    // Render the game element
+    document.getElementById('content').replaceChildren(this.element);
   }
 
   createGrid() {
@@ -32,10 +35,19 @@ export default class GameController {
         const gridDataElement = document.createElement('td');
         // Display the element of the tile
         gridDataElement.append(gridRow[x].element);
+
+        gridDataElement.addEventListener('click', () => {
+          this.revealTile(y, x);
+        });
+
         gridRowElement.append(gridDataElement);
       }
       gridElement.append(gridRowElement);
     }
     this.element.append(gridElement);
+  }
+
+  revealTile(y, x) {
+    this.grid[y][x].revealTile();
   }
 }

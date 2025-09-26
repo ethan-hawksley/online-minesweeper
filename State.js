@@ -8,7 +8,7 @@ export default class State {
     this.gameController = null;
 
     // React to the Start Game button being pressed
-    document.addEventListener('gameStart', () => {
+    document.addEventListener('startingGame', () => {
       this.startGame();
     });
   }
