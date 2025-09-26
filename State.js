@@ -1,4 +1,4 @@
-import MainMenu from "./MainMenu.js";
+import MainMenu from './MainMenu.js';
 
 export default class State {
   constructor() {
