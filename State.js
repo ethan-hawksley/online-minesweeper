@@ -1,4 +1,5 @@
 import MainMenu from './MainMenu.js';
+import GameController from './GameController.js';
 
 export default class State {
   constructor() {
