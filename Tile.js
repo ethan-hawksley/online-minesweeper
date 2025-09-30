@@ -6,10 +6,15 @@ export default class Tile {
     this.element.textContent = '';
 
     this.isRevealed = false;
+    this.isMine = false;
   }
 
   revealTile() {
     this.isRevealed = true;
     this.element.classList.add('revealed');
+    if (this.isMine) {
+      this.element.classList.add('mine');
+      this.element.textContent = '💣';
+    }
   }
 }
