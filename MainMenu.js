@@ -21,5 +21,14 @@ export default class MainMenu {
 
     // Render the main menu
     document.getElementById('content').replaceChildren(this.element);
+
+    document.addEventListener('startingGame', () => {
+      // Dispatch custom global event for the game to start. Contain the data for how the game should be played
+      document.dispatchEvent(
+        new CustomEvent('startGame', {
+          detail: { gameSettings: this.modeSelector.getGameSettings() },
+        }),
+      );
+    });
   }
 }
