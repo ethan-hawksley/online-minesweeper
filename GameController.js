@@ -1,7 +1,7 @@
 import Tile from './Tile.js';
 
 export default class GameController {
-  constructor(mode, width, height, mineCount, timeLimit) {
+  constructor(_mode, width, height, mineCount, _timeLimit) {
     // Create div element to store HTML
     this.element = document.createElement('div');
     this.grid = null;
