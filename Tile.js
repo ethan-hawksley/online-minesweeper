@@ -18,8 +18,10 @@ export default class Tile {
       this.element.textContent = '💣';
     } else {
       // Show adjacent number of mines
-      this.element.classList.add(adjacentMineCount.toString());
-      this.element.textContent = adjacentMineCount.toString();
+      this.element.classList.add('mines' + adjacentMineCount.toString());
+      if (adjacentMineCount) {
+        this.element.textContent = adjacentMineCount.toString();
+      }
     }
   }
 }
