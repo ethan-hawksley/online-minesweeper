@@ -36,7 +36,7 @@ export default class ModeSelector {
       this.timeAttackModeButton,
       this.difficultySelector.element,
     );
-   
+
     this.setMode(initialMode);
   }
 
@@ -53,7 +53,7 @@ export default class ModeSelector {
     );
   }
 
-  getMode() {
+  getGameSettings() {
     // Gather the correct difficulty settings for the mode
     let difficulty = {};
     switch (this.difficultySelector.selectedDifficulty) {
