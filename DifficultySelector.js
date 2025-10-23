@@ -9,15 +9,19 @@ export default class DifficultySelector {
     // Create a button for each difficulty mode
     this.standardDifficultyButton = document.createElement('button');
     this.standardDifficultyButton.textContent = 'Standard';
+    this.standardDifficultyButton.className = 'menu-button';
 
     this.hardDifficultyButton = document.createElement('button');
     this.hardDifficultyButton.textContent = 'Hard';
+    this.hardDifficultyButton.className = 'menu-button';
 
     this.expertDifficultyButton = document.createElement('button');
     this.expertDifficultyButton.textContent = 'Expert';
+    this.expertDifficultyButton.className = 'menu-button';
 
     this.customDifficultyButton = document.createElement('button');
     this.customDifficultyButton.textContent = 'Custom';
+    this.customDifficultyButton.className = 'menu-button';
 
     // Create element to encapsulate all the parts that can change in custom difficulty
     this.customDifficultyDiv = document.createElement('div');
@@ -67,16 +71,16 @@ export default class DifficultySelector {
 
     // When buttons are clicked, set the difficulty to the corresponding one
     this.standardDifficultyButton.addEventListener('click', () => {
-      this.select('standard');
+      this.setDifficulty('standard');
     });
     this.hardDifficultyButton.addEventListener('click', () => {
-      this.select('hard');
+      this.setDifficulty('hard');
     });
     this.expertDifficultyButton.addEventListener('click', () => {
-      this.select('expert');
+      this.setDifficulty('expert');
     });
     this.customDifficultyButton.addEventListener('click', () => {
-      this.select('custom');
+      this.setDifficulty('custom');
     });
 
     // Add all subparts to their parent element
@@ -96,7 +100,8 @@ export default class DifficultySelector {
     );
 
     // Initialise the selector with the initial difficulty state
-    this.select(initialDifficulty);
+    this.setDifficulty(initialDifficulty);
+    this.setMode(initialMode);
   }
 
   setDifficulty(difficulty) {
