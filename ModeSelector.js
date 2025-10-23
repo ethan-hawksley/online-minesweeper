@@ -16,9 +16,19 @@ export default class ModeSelector {
     // Create buttons for each mode
     this.classicModeButton = document.createElement('button');
     this.classicModeButton.textContent = 'Classic';
+    this.classicModeButton.className = 'menu-button';
 
     this.timeAttackModeButton = document.createElement('button');
     this.timeAttackModeButton.textContent = 'Time Attack';
+    this.timeAttackModeButton.className = 'menu-button';
+
+    this.classicModeButton.addEventListener('click', () => {
+      this.setMode('classic');
+    });
+
+    this.timeAttackModeButton.addEventListener('click', () => {
+      this.setMode('timeAttack');
+    });
 
     // Append all HTML elements to the main element
     this.element.append(
@@ -26,6 +36,8 @@ export default class ModeSelector {
       this.timeAttackModeButton,
       this.difficultySelector.element,
     );
+   
+    this.setMode(initialMode);
   }
 
   setMode(mode) {
