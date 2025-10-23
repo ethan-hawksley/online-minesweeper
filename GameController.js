@@ -1,13 +1,13 @@
 import Tile from './Tile.js';
 
 export default class GameController {
-  constructor() {
+  constructor(mode, width, height, mineCount, timeLimit) {
     // Create div element to store HTML
     this.element = document.createElement('div');
     this.grid = null;
-    this.height = 8;
-    this.width = 6;
-    this.mineCount = 7;
+    this.height = height;
+    this.width = width;
+    this.mineCount = mineCount;
     this.tilesLeft = this.height * this.width - this.mineCount;
     this.active = true;
 
@@ -153,6 +153,7 @@ export default class GameController {
       }
     }
 
+    // If all non-mine tiles have been revealed
     if (this.tilesLeft === 0) {
       this.gameWon();
     }
@@ -160,6 +161,7 @@ export default class GameController {
 
   toggleFlag(y, x) {
     const selectedTile = this.grid[y][x];
+    // Do not flag a tile that's already revealed
     if (selectedTile.isRevealed) return;
 
     if (selectedTile.isFlagged) {
