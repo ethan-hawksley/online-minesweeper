@@ -34,6 +34,8 @@ export default class DifficultySelector {
     this.customWidthInput = document.createElement('input');
     this.customWidthInput.id = 'custom-width';
     this.customWidthInput.type = 'number';
+    this.customWidthInput.value = '1';
+    this.customWidthInput.min = '1';
     this.customWidthDiv.append(this.customWidthLabel, this.customWidthInput);
 
     this.customHeightDiv = document.createElement('div');
@@ -43,6 +45,8 @@ export default class DifficultySelector {
     this.customHeightInput = document.createElement('input');
     this.customHeightInput.id = 'custom-height';
     this.customHeightInput.type = 'number';
+    this.customHeightInput.value = '1';
+    this.customHeightInput.min = '1';
     this.customHeightDiv.append(this.customHeightLabel, this.customHeightInput);
 
     this.customMineCountDiv = document.createElement('div');
@@ -52,6 +56,8 @@ export default class DifficultySelector {
     this.customMineCountInput = document.createElement('input');
     this.customMineCountInput.id = 'custom-mine-count';
     this.customMineCountInput.type = 'number';
+    this.customMineCountInput.value = '1';
+    this.customMineCountInput.min = '1';
     this.customMineCountDiv.append(
       this.customMineCountLabel,
       this.customMineCountInput,
@@ -64,6 +70,8 @@ export default class DifficultySelector {
     this.customTimeLimitInput = document.createElement('input');
     this.customTimeLimitInput.id = 'custom-time-limit';
     this.customTimeLimitInput.type = 'number';
+    this.customTimeLimitInput.value = '1';
+    this.customTimeLimitInput.min = '1';
     this.customTimeLimitDiv.append(
       this.customTimeLimitLabel,
       this.customTimeLimitInput,
@@ -138,12 +146,18 @@ export default class DifficultySelector {
   }
 
   getCustomOptions() {
-    // Fetch and return the values of the custom inputs
+    const parseAndValidate = (value) => {
+      const parsedValue = parseInt(value, 10);
+      if (isNaN(parsedValue) || parsedValue <= 0) {
+        return 1;
+      }
+      return parsedValue;
+    };
     return {
-      width: Number(this.customWidthInput.value),
-      height: Number(this.customHeightInput.value),
-      mineCount: Number(this.customMineCountInput.value),
-      timeLimit: Number(this.customTimeLimitInput.value),
+      width: parseAndValidate(this.customWidthInput.value),
+      height: parseAndValidate(this.customHeightInput.value),
+      mineCount: parseAndValidate(this.customMineCountInput.value),
+      timeLimit: parseAndValidate(this.customTimeLimitInput.value),
     };
   }
 }
