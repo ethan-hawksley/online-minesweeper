@@ -7,6 +7,7 @@ export default class Tile {
 
     this.isRevealed = false;
     this.isMine = false;
+    this.isFlagged = false;
   }
 
   revealTile(adjacentMineCount) {
@@ -23,5 +24,15 @@ export default class Tile {
         this.element.textContent = adjacentMineCount.toString();
       }
     }
+  }
+
+  flagTile() {
+    this.isFlagged = true;
+    this.textContent = '🚩';
+  }
+
+  unflagTile() {
+    this.isFlagged = false;
+    this.textContent = '';
   }
 }

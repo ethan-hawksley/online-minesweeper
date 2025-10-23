@@ -46,6 +46,11 @@ export default class GameController {
           this.revealTile(y, x);
         });
 
+        // When tile right-clicked, flag the tile
+        gridDataElement.addEventListener('contextmenu', () => {
+          this.toggleFlag(y, x);
+        });
+
         gridRowElement.append(gridDataElement);
       }
       // Add the row to the grid
@@ -138,6 +143,17 @@ export default class GameController {
       for (const coordinate of adjacentCoordinates) {
         this.revealTile(coordinate.y, coordinate.x);
       }
+    }
+  }
+
+  toggleFlag(y, x) {
+    const selectedTile = this.grid[y][x];
+    if (selectedTile.isRevealed) return;
+
+    if (selectedTile.isFlagged) {
+      selectedTile.unflagTile();
+    } else {
+      selectedTile.flagTile();
     }
   }
 
