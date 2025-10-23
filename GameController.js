@@ -130,6 +130,14 @@ export default class GameController {
     if (selectedTile.isMine) {
       // End the game if a mine is clicked
       this.gameOver();
+      return;
+    }
+
+    // If there are no adjacent mines, reveal all adjacent tiles
+    if (adjacentMines === 0) {
+      for (const coordinate of adjacentCoordinates) {
+        this.revealTile(coordinate.y, coordinate.x);
+      }
     }
   }
 
