@@ -8,18 +8,28 @@ export default class State {
     this.gameController = null;
 
     // React to the Start Game button being pressed
-    document.addEventListener('startGame', () => {
-      this.startGame();
+    document.addEventListener('startGame', (e) => {
+      // Destructure the properties passed in the event
+      const { mode, width, height, mineCount, timeLimit } =
+        e.detail.gameSettings;
+      this.startGame(mode, width, height, mineCount, timeLimit);
     });
     document.addEventListener('startMainMenu', () => {
       this.startMainMenu();
     });
   }
 
-  startGame() {
+  startGame(mode, width, height, mineCount, timeLimit) {
     // Unload the main menu and load the game controller
     this.mainMenu = null;
-    this.gameController = new GameController();
+    // Pass the settings for the game
+    this.gameController = new GameController(
+      mode,
+      width,
+      height,
+      mineCount,
+      timeLimit,
+    );
   }
 
   startMainMenu() {
