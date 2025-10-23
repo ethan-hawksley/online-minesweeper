@@ -9,6 +9,7 @@ export default class GameController {
     this.width = width;
     this.mineCount = mineCount;
     this.tilesLeft = this.height * this.width - this.mineCount;
+    this.firstClick = true;
     this.active = true;
 
     this.createGrid();
@@ -62,12 +63,13 @@ export default class GameController {
     this.element.append(gridElement);
   }
 
-  setupMineLocations() {
+  setupMineLocations(safeY, safeX) {
     // Empty array of positions
     const positions = [];
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
         // Fill array with all x and y coordinates
+        if (y === safeY && x === safeX) continue;
         positions.push({ y, x });
       }
     }
@@ -116,6 +118,11 @@ export default class GameController {
       // Do not reveal tiles when the game is over
       return;
     }
+    if (this.firstClick) {
+      // Setup mines so that the first click is safe
+      this.setupMineLocations(y, x);
+      this.firstClick = false;
+    }
 
     const selectedTile = this.grid[y][x];
     if (selectedTile.isRevealed) {
@@ -128,6 +135,7 @@ export default class GameController {
     }
 
     const adjacentCoordinates = this.getAdjacentCoordinates(y, x);
+    // Initialise count at 0
     let adjacentMines = 0;
     for (const coordinate of adjacentCoordinates) {
       if (this.grid[coordinate.y][coordinate.x].isMine) {
