@@ -1,0 +1,23 @@
+{
+  "name": "online-minesweeper",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/ethan-hawksley/online-minesweeper#readme",
+  "bugs": {
+    "url": "https://github.com/ethan-hawksley/online-minesweeper/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ethan-hawksley/online-minesweeper.git"
+  },
+  "license": "MIT",
+  "author": "",
+  "type": "module",
+  "main": "State.js",
+  "scripts": {
+  },
+  "devDependencies": {
+    "eslint": "^9.36.0",
+    "prettier": "^3.6.2"
+  }
+}
