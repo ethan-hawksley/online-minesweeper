@@ -8,9 +8,9 @@ export default class PlayGame {
     // Assign class for consistent styling
     playGameButton.className = 'menu-button';
 
-    // Dispatch a global event when pressed, so that the state can respond to it
     playGameButton.addEventListener('click', () => {
-      document.dispatchEvent(new CustomEvent('startGame'));
+      // Dispatch startingGame, so that the MainMenu can collect the mode data and then broadcast startGame
+      document.dispatchEvent(new CustomEvent('startingGame'));
     });
 
     this.element.append(playGameButton);
