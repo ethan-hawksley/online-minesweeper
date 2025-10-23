@@ -1,3 +1,16 @@
+/* Buttons on the main menu */
+.menu-button {
+    margin: 3px;
+    border: 1px solid gray;
+    border-radius: 10px 10px;
+}
+
+/* When a button is active */
+.menu-button.selected {
+    margin: 2px;
+    border: 2px solid red;
+}
+
 /* Default tile state */
 .tile {
     width: 50px;
