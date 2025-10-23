@@ -5,6 +5,8 @@ export default class PlayGame {
 
     const playGameButton = document.createElement('button');
     playGameButton.textContent = 'Play Game';
+    // Assign class for consistent styling
+    playGameButton.className = 'menu-button';
 
     // Dispatch a global event when pressed, so that the state can respond to it
     playGameButton.addEventListener('click', () => {
