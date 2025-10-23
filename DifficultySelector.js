@@ -1,5 +1,5 @@
 export default class DifficultySelector {
-  constructor(initialDifficulty) {
+  constructor(initialDifficulty, initialMode) {
     // Start with no difficulty
     this.selectedDifficulty = null;
 
@@ -22,26 +22,48 @@ export default class DifficultySelector {
     // Create element to encapsulate all the parts that can change in custom difficulty
     this.customDifficultyDiv = document.createElement('div');
 
+    // Create elements to encapsulate each label and input
+    this.customWidthDiv = document.createElement('div');
     this.customWidthLabel = document.createElement('label');
     this.customWidthLabel.setAttribute('for', 'custom-width');
     this.customWidthLabel.textContent = 'Width:';
     this.customWidthInput = document.createElement('input');
     this.customWidthInput.id = 'custom-width';
     this.customWidthInput.type = 'number';
+    this.customWidthDiv.append(this.customWidthLabel, this.customWidthInput);
 
+    this.customHeightDiv = document.createElement('div');
     this.customHeightLabel = document.createElement('label');
     this.customHeightLabel.setAttribute('for', 'custom-height');
     this.customHeightLabel.textContent = 'Height:';
     this.customHeightInput = document.createElement('input');
     this.customHeightInput.id = 'custom-height';
     this.customHeightInput.type = 'number';
+    this.customHeightDiv.append(this.customHeightLabel, this.customHeightInput);
 
+    this.customMineCountDiv = document.createElement('div');
     this.customMineCountLabel = document.createElement('label');
     this.customMineCountLabel.setAttribute('for', 'custom-mine-count');
     this.customMineCountLabel.textContent = 'Mines:';
     this.customMineCountInput = document.createElement('input');
     this.customMineCountInput.id = 'custom-mine-count';
     this.customMineCountInput.type = 'number';
+    this.customMineCountDiv.append(
+      this.customMineCountLabel,
+      this.customMineCountInput,
+    );
+
+    this.customTimeLimitDiv = document.createElement('div');
+    this.customTimeLimitLabel = document.createElement('label');
+    this.customTimeLimitLabel.setAttribute('for', 'custom-time-limit');
+    this.customTimeLimitLabel.textContent = 'Time Limit:';
+    this.customTimeLimitInput = document.createElement('input');
+    this.customTimeLimitInput.id = 'custom-time-limit';
+    this.customTimeLimitInput.type = 'number';
+    this.customTimeLimitDiv.append(
+      this.customTimeLimitLabel,
+      this.customTimeLimitInput,
+    );
 
     // When buttons are clicked, set the difficulty to the corresponding one
     this.standardDifficultyButton.addEventListener('click', () => {
@@ -59,12 +81,10 @@ export default class DifficultySelector {
 
     // Add all subparts to their parent element
     this.customDifficultyDiv.append(
-      this.customWidthLabel,
-      this.customWidthInput,
-      this.customHeightLabel,
-      this.customHeightInput,
-      this.customMineCountLabel,
-      this.customMineCountInput,
+      this.customWidthDiv,
+      this.customHeightDiv,
+      this.customMineCountDiv,
+      this.customTimeLimitDiv,
     );
 
     this.element.append(
@@ -79,7 +99,7 @@ export default class DifficultySelector {
     this.select(initialDifficulty);
   }
 
-  select(difficulty) {
+  setDifficulty(difficulty) {
     this.selectedDifficulty = difficulty;
     // Toggle each element to the correct difficulty
     if (difficulty === 'standard') {
@@ -105,5 +125,20 @@ export default class DifficultySelector {
       this.customDifficultyButton.classList.remove('selected');
       this.customDifficultyDiv.hidden = true;
     }
+  }
+
+  setMode(mode) {
+    // Show and hide relevant custom options
+    this.customTimeLimitDiv.hidden = mode !== 'timeAttack';
+  }
+
+  getCustomOptions() {
+    // Fetch and return the values of the custom inputs
+    return {
+      width: Number(this.customWidthInput.value),
+      height: Number(this.customHeightInput.value),
+      mineCount: Number(this.customMineCountInput.value),
+      timeLimit: Number(this.customTimeLimitInput.value),
+    };
   }
 }
