@@ -8,6 +8,7 @@ export default class GameController {
     this.height = 8;
     this.width = 6;
     this.mineCount = 7;
+    this.active = true;
 
     this.createGrid();
     this.setupTiles();
@@ -83,8 +84,61 @@ export default class GameController {
     }
   }
 
+  getAdjacentCoordinates(y, x) {
+    // Create empty array for adjacent coordinates
+    const adjacentCoordinates = [];
+    for (let dy = -1; dy <= 1; dy++) {
+      for (let dx = -1; dx <= 1; dx++) {
+        // Iterate over all adjacent x and y positions
+        if (dy === 0 && dx === 0) continue;
+
+        const newY = y + dy;
+        const newX = x + dx;
+
+        // If the new coordinates are in bounds, add the coordinate as adjacent
+        if (newY >= 0 && newY < this.height && newX >= 0 && newX < this.width) {
+          adjacentCoordinates.push({ y: newY, x: newX });
+        }
+      }
+    }
+    return adjacentCoordinates;
+  }
+
   revealTile(y, x) {
-    // Call the revealTile method on the Tile object
-    this.grid[y][x].revealTile();
+    if (!this.active) {
+      // Do not reveal tiles when the game is over
+      return;
+    }
+
+    const selectedTile = this.grid[y][x];
+    if (selectedTile.isRevealed) {
+      // Do not reveal a tile twice
+      return;
+    }
+
+    const adjacentCoordinates = this.getAdjacentCoordinates(y, x);
+    let adjacentMines = 0;
+    for (const coordinate of adjacentCoordinates) {
+      if (this.grid[coordinate.y][coordinate.x].isMine) {
+        // Count how many adjacent tiles are mines
+        adjacentMines++;
+      }
+    }
+
+    selectedTile.revealTile(adjacentMines);
+
+    if (selectedTile.isMine) {
+      // End the game if a mine is clicked
+      this.gameOver();
+    }
+  }
+
+  gameOver() {
+    // Disable the game running
+    this.active = false;
+    setTimeout(() => {
+      // Dispatch a global event so that the main menu starts
+      document.dispatchEvent(new CustomEvent('startMainMenu'));
+    }, 5000 /* 5 seconds */);
   }
 }

@@ -8,7 +8,7 @@ export default class PlayGame {
 
     // Dispatch a global event when pressed, so that the state can respond to it
     playGameButton.addEventListener('click', () => {
-      document.dispatchEvent(new CustomEvent('startingGame'));
+      document.dispatchEvent(new CustomEvent('startGame'));
     });
 
     this.element.append(playGameButton);

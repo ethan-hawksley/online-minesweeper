@@ -8,8 +8,11 @@ export default class State {
     this.gameController = null;
 
     // React to the Start Game button being pressed
-    document.addEventListener('startingGame', () => {
+    document.addEventListener('startGame', () => {
       this.startGame();
+    });
+    document.addEventListener('startMainMenu', () => {
+      this.startMainMenu();
     });
   }
 
@@ -17,5 +20,10 @@ export default class State {
     // Unload the main menu and load the game controller
     this.mainMenu = null;
     this.gameController = new GameController();
+  }
+
+  startMainMenu() {
+    this.gameController = null;
+    this.mainMenu = new MainMenu();
   }
 }

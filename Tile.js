@@ -9,12 +9,17 @@ export default class Tile {
     this.isMine = false;
   }
 
-  revealTile() {
+  revealTile(adjacentMineCount) {
     this.isRevealed = true;
+    // Change appearance to revealed tile
     this.element.classList.add('revealed');
     if (this.isMine) {
       this.element.classList.add('mine');
       this.element.textContent = '💣';
+    } else {
+      // Show adjacent number of mines
+      this.element.classList.add(adjacentMineCount.toString());
+      this.element.textContent = adjacentMineCount.toString();
     }
   }
 }
