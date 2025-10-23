@@ -47,7 +47,8 @@ export default class GameController {
         });
 
         // When tile right-clicked, flag the tile
-        gridDataElement.addEventListener('contextmenu', () => {
+        gridDataElement.addEventListener('contextmenu', (e) => {
+          e.preventDefault();
           this.toggleFlag(y, x);
         });
 

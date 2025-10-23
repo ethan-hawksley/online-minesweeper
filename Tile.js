@@ -28,11 +28,11 @@ export default class Tile {
 
   flagTile() {
     this.isFlagged = true;
-    this.textContent = '🚩';
+    this.element.textContent = '🚩';
   }
 
   unflagTile() {
     this.isFlagged = false;
-    this.textContent = '';
+    this.element.textContent = '';
   }
 }
