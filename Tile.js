@@ -28,11 +28,15 @@ export default class Tile {
 
   flagTile() {
     this.isFlagged = true;
+    // Show a flag symbol on the tile
     this.element.textContent = '🚩';
+    this.element.classList.add('flagged');
   }
 
   unflagTile() {
     this.isFlagged = false;
+    // Hide any currently shown symbols on the tile
     this.element.textContent = '';
+    this.element.classList.remove('flagged');
   }
 }

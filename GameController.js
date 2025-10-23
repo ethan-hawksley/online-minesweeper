@@ -8,6 +8,7 @@ export default class GameController {
     this.height = 8;
     this.width = 6;
     this.mineCount = 7;
+    this.tilesLeft = this.height * this.width - this.mineCount;
     this.active = true;
 
     this.createGrid();
@@ -121,6 +122,10 @@ export default class GameController {
       // Do not reveal a tile twice
       return;
     }
+    if (selectedTile.isFlagged) {
+      // Do not reveal flagged tiles
+      return;
+    }
 
     const adjacentCoordinates = this.getAdjacentCoordinates(y, x);
     let adjacentMines = 0;
@@ -138,12 +143,18 @@ export default class GameController {
       this.gameOver();
       return;
     }
+    // Decrement the number of tiles left
+    this.tilesLeft--;
 
     // If there are no adjacent mines, reveal all adjacent tiles
     if (adjacentMines === 0) {
       for (const coordinate of adjacentCoordinates) {
         this.revealTile(coordinate.y, coordinate.x);
       }
+    }
+
+    if (this.tilesLeft === 0) {
+      this.gameWon();
     }
   }
 
@@ -159,6 +170,15 @@ export default class GameController {
   }
 
   gameOver() {
+    // Disable the game running
+    this.active = false;
+    setTimeout(() => {
+      // Dispatch a global event so that the main menu starts
+      document.dispatchEvent(new CustomEvent('startMainMenu'));
+    }, 5000 /* 5 seconds */);
+  }
+
+  gameWon() {
     // Disable the game running
     this.active = false;
     setTimeout(() => {

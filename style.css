@@ -5,6 +5,11 @@
     background-color: white;
 }
 
+/* When a tile is flagged */
+.tile.flagged {
+    background-color: rosybrown;
+}
+
 /* How many adjacent mines there are */
 .tile.revealed.mines0 {
     background-color: lightslategray;
