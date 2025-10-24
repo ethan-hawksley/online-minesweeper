@@ -22,6 +22,7 @@ export default class ModeSelector {
     this.timeAttackModeButton.textContent = 'Time Attack';
     this.timeAttackModeButton.className = 'menu-button';
 
+    // When buttons are clicked change the mode
     this.classicModeButton.addEventListener('click', () => {
       this.setMode('classic');
     });
