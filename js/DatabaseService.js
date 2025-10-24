@@ -1,7 +1,7 @@
 export default class DatabaseService {
   constructor() {
     // Attempt to open the database
-    const request = indexedDB.open('MineDuoDB', 5);
+    const request = indexedDB.open('MineDuoDB', 6);
 
     // If the database requires creation or upgrading
     request.addEventListener('upgradeneeded', (e) => {
@@ -14,7 +14,7 @@ export default class DatabaseService {
         this.db.deleteObjectStore(storeName);
       }
 
-      // Create new stores
+      // Create store for best scores
       const bestScoresStore = this.db.createObjectStore('bestScores', {
         keyPath: 'id',
       });
@@ -25,6 +25,13 @@ export default class DatabaseService {
       bestScoresStore.add({ id: 'timeAttack-standard', value: 0 });
       bestScoresStore.add({ id: 'timeAttack-hard', value: 0 });
       bestScoresStore.add({ id: 'timeAttack-expert', value: 0 });
+
+      // Create store for streak
+      const streakStore = this.db.createObjectStore('streak', {
+        keyPath: 'id',
+      });
+      // Stores start with default values
+      streakStore.add({ id: 'currentStreak', value: 0 });
     });
 
     // If request to open the database is successful
@@ -45,7 +52,7 @@ export default class DatabaseService {
       if (!this.db) {
         return reject('Database not initialised');
       }
-      const transaction = this.db.transaction(['bestScores'], 'readonly');
+      const transaction = this.db.transaction('bestScores', 'readonly');
       const store = transaction.objectStore('bestScores');
       // Get the specific entry for the mode and difficulty
       const request = store.get(`${mode}-${difficulty}`);
@@ -72,10 +79,60 @@ export default class DatabaseService {
       if (!this.db) {
         return reject('Database not initialised');
       }
-      const transaction = this.db.transaction(['bestScores'], 'readwrite');
+      const transaction = this.db.transaction('bestScores', 'readwrite');
       const store = transaction.objectStore('bestScores');
       // Update the specific entry for the mode and difficulty
       const request = store.put({ id: `${mode}-${difficulty}`, value: score });
+
+      // If successful setting the value
+      request.onsuccess = () => {
+        resolve();
+      };
+
+      // If error encountered whilst setting value
+      request.onerror = (e) => {
+        reject(e);
+      };
+    });
+  }
+
+  getStreak() {
+    // Use promises to wrap the asynchronous operation
+    return new Promise((resolve, reject) => {
+      if (!this.db) {
+        return reject('Database not initialised');
+      }
+      const transaction = this.db.transaction('streak', 'readonly');
+      const store = transaction.objectStore('streak');
+      // Get the current streak
+      const request = store.get('currentStreak');
+
+      // If successful retrieving value
+      request.onsuccess = () => {
+        if (request.result) {
+          resolve(request.result.value);
+        } else {
+          resolve(null);
+        }
+      };
+
+      // If error encountered whilst retrieving value
+      request.onerror = (e) => {
+        reject(e);
+      };
+    });
+  }
+
+  updateStreak(streak) {
+    // Use promises to wrap the asynchronous operation
+    return new Promise((resolve, reject) => {
+      if (!this.db) {
+        return reject('Database not initialised');
+      }
+      const transaction = this.db.transaction('streak', 'readwrite');
+      const store = transaction.objectStore('streak');
+      // Update the held current streak
+      const request = store.put({ id: 'currentStreak', value: streak });
 
       // If successful setting the value
       request.onsuccess = () => {
