@@ -1,6 +1,7 @@
 import MenuHeader from './MenuHeader.js';
 import PlayGame from './PlayGame.js';
 import ModeSelector from './ModeSelector.js';
+import Settings from './Settings.js';
 
 export default class MainMenu {
   constructor(databaseService) {
@@ -12,12 +13,14 @@ export default class MainMenu {
     this.menuHeader = new MenuHeader();
     this.playGame = new PlayGame();
     this.modeSelector = new ModeSelector('standard', 'classic');
+    this.settings = new Settings();
 
     // Display the elements of each part
     this.element.append(
       this.menuHeader.element,
       this.playGame.element,
       this.modeSelector.element,
+      this.settings.element,
     );
 
     // Render the main menu
