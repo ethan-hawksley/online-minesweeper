@@ -1,7 +1,7 @@
 export default class DatabaseService {
   constructor() {
     // Attempt to open the database
-    const request = indexedDB.open('MineDuoDB', 4);
+    const request = indexedDB.open('MineDuoDB', 5);
 
     // If the database requires creation or upgrading
     request.addEventListener('upgradeneeded', (e) => {
