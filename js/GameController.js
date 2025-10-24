@@ -145,10 +145,9 @@ export default class GameController {
   }
 
   revealTile(y, x) {
-    if (!this.active) {
-      // Do not reveal tiles when the game is over
-      return;
-    }
+    // Do not reveal tiles when the game is over
+    if (!this.active) return;
+
     if (this.firstClick) {
       // Setup mines so that the first click is safe
       this.setupMineLocations(y, x);
@@ -156,14 +155,10 @@ export default class GameController {
     }
 
     const selectedTile = this.grid[y][x];
-    if (selectedTile.isRevealed) {
-      // Do not reveal a tile twice
-      return;
-    }
-    if (selectedTile.isFlagged) {
-      // Do not reveal flagged tiles
-      return;
-    }
+    // Do not reveal a tile twice
+    if (selectedTile.isRevealed) return;
+    // Do not reveal flagged tiles
+    if (selectedTile.isFlagged) return;
 
     const adjacentCoordinates = this.getAdjacentCoordinates(y, x);
     // Initialise count at 0
@@ -184,6 +179,7 @@ export default class GameController {
     }
     // Decrement the number of tiles left
     this.tilesLeft--;
+    this.scoreManager.tileRevealed();
 
     // If there are no adjacent mines, reveal all adjacent tiles
     if (adjacentMines === 0) {
@@ -199,6 +195,9 @@ export default class GameController {
   }
 
   toggleFlag(y, x) {
+    // Do not reveal tiles when the game is over
+    if (!this.active) return;
+
     const selectedTile = this.grid[y][x];
     // Do not flag a tile that's already revealed
     if (selectedTile.isRevealed) return;
