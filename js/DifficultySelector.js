@@ -115,29 +115,24 @@ export default class DifficultySelector {
   setDifficulty(difficulty) {
     this.selectedDifficulty = difficulty;
     // Toggle each element to the correct difficulty
-    if (difficulty === 'standard') {
-      this.standardDifficultyButton.classList.add('selected');
-    } else {
-      this.standardDifficultyButton.classList.remove('selected');
-    }
-    if (difficulty === 'hard') {
-      this.hardDifficultyButton.classList.add('selected');
-    } else {
-      this.hardDifficultyButton.classList.remove('selected');
-    }
-    if (difficulty === 'expert') {
-      this.expertDifficultyButton.classList.add('selected');
-    } else {
-      this.expertDifficultyButton.classList.remove('selected');
-    }
-    if (difficulty === 'custom') {
-      this.customDifficultyButton.classList.add('selected');
-      // Show and hide the element when relevant
-      this.customDifficultyDiv.hidden = false;
-    } else {
-      this.customDifficultyButton.classList.remove('selected');
-      this.customDifficultyDiv.hidden = true;
-    }
+    this.standardDifficultyButton.classList.toggle(
+      'selected',
+      difficulty === 'standard',
+    );
+    this.hardDifficultyButton.classList.toggle(
+      'selected',
+      difficulty === 'hard',
+    );
+    this.expertDifficultyButton.classList.toggle(
+      'selected',
+      difficulty === 'expert',
+    );
+    this.customDifficultyButton.classList.toggle(
+      'selected',
+      difficulty === 'custom',
+    );
+    // If the difficulty is not custom, hide the custom options
+    this.customDifficultyDiv.hidden = difficulty !== 'custom';
   }
 
   setMode(mode) {
