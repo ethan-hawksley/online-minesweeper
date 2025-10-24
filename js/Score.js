@@ -64,4 +64,16 @@ export default class Score {
       }
     }, 1000 /* 1 second */);
   }
+
+  gameOver() {
+    // Stop modifying the score
+    clearInterval(this.interval);
+  }
+
+  gameWon() {
+    // Stop modifying the score
+    clearInterval(this.interval);
+    // See if a new best score has just been set
+    this.bestScore.checkBestScore(this.score);
+  }
 }
