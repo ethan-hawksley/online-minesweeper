@@ -43,6 +43,7 @@ export default class Score {
   timeAttackMode() {
     // Score starts at the time limit and counts down
     // The aim is to beat the board before running out of time
+    // Highest score is the best
     this.score = this.modeSettings.timeLimit;
     this.scoreIndicator.textContent = `Time: ${this.score}`;
     // Each second, decrement the score
