@@ -213,6 +213,8 @@ export default class GameController {
   gameOver() {
     // Disable the game running
     this.active = false;
+    // Call game over logic
+    this.scoreManager.gameOver();
     setTimeout(() => {
       // Dispatch a global event so that the main menu starts
       document.dispatchEvent(new CustomEvent('startMainMenu'));
@@ -222,6 +224,8 @@ export default class GameController {
   gameWon() {
     // Disable the game running
     this.active = false;
+    // Call game won logic
+    this.scoreManager.gameWon();
     setTimeout(() => {
       // Dispatch a global event so that the main menu starts
       document.dispatchEvent(new CustomEvent('startMainMenu'));
