@@ -55,37 +55,44 @@ export default class ModeSelector {
 
   getGameSettings() {
     // Gather the correct difficulty settings for the mode
-    let difficulty = {};
-    switch (this.difficultySelector.selectedDifficulty) {
+    const difficulty = this.difficultySelector.selectedDifficulty;
+    let options = {};
+    switch (difficulty) {
       case 'standard':
-        difficulty = {
+        options = {
           width: 9,
           height: 9,
           mineCount: 10,
-          timeLimit: 200,
+          modeSettings: {
+            timeLimit: 200,
+          },
         };
         break;
       case 'hard':
-        difficulty = {
+        options = {
           width: 16,
           height: 16,
           mineCount: 20,
-          timeLimit: 400,
+          modeSettings: {
+            timeLimit: 400,
+          },
         };
         break;
       case 'expert':
-        difficulty = {
+        options = {
           width: 30,
           height: 20,
           mineCount: 50,
-          timeLimit: 700,
+          modeSettings: {
+            timeLimit: 700,
+          },
         };
         break;
       case 'custom':
-        difficulty = this.difficultySelector.getCustomOptions();
+        options = this.difficultySelector.getCustomOptions();
         break;
       default:
-        throw Error(
+        throw new Error(
           `Invalid mode: ${this.difficultySelector.selectedDifficulty}`,
         );
     }
@@ -93,7 +100,8 @@ export default class ModeSelector {
     // Return all the details about the game
     return {
       mode: this.selectedMode,
-      ...difficulty,
+      difficulty,
+      ...options,
     };
   }
 }
