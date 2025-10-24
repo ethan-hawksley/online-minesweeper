@@ -14,6 +14,11 @@ export default class ScoreManager {
     this.element.append(this.score.element, this.streak.element);
   }
 
+  tileRevealed() {
+    // Relay a tile is revealed
+    this.score.tileRevealed();
+  }
+
   gameWon() {
     // Relay the game is won
     this.score.gameWon();
