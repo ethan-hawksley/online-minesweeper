@@ -11,4 +11,12 @@ export default class ScoreManager {
     // Show the score class on the page
     this.element.append(this.score.element);
   }
+
+  gameWon() {
+    this.score.gameWon();
+  }
+
+  gameOver() {
+    this.score.gameOver();
+  }
 }
