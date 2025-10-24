@@ -1,56 +1,117 @@
-/* Use readable font */
+/* Light mode colours */
 body {
+    --text-colour: black;
+    --background-colour: white;
+    --menu-button-background-colour: lightgrey;
+    --menu-button-border-colour: grey;
+    --menu-button-selected-colour: red;
+    --tile-background-colour: lightgrey;
+    --tile-flagged-colour: rosybrown;
+    --tile-0-adjacent-colour: lightslategrey;
+    --tile-1-adjacent-colour: orange;
+    --tile-2-adjacent-colour: darkorange;
+    --tile-3-adjacent-colour: orangered;
+    --tile-4-adjacent-colour: #f04201;
+    --tile-5-adjacent-colour: #d03700;
+    --tile-6-adjacent-colour: #a82c00;
+    --tile-7-adjacent-colour: #8e2700;
+    --tile-8-adjacent-colour: #6c1d00;
+    --tile-mine-colour: #411200;
+}
+
+/* Dark mode colours */
+body.dark-mode {
+    --text-colour: white;
+    --background-colour: black;
+    --menu-button-background-colour: #555555;
+    --menu-button-border-colour: #1b1b1b;
+    --menu-button-selected-colour: #9e0000;
+    --tile-background-colour: darkgrey;
+    --tile-flagged-colour: rosybrown;
+    --tile-0-adjacent-colour: lightslategrey;
+    --tile-1-adjacent-colour: orange;
+    --tile-2-adjacent-colour: darkorange;
+    --tile-3-adjacent-colour: orangered;
+    --tile-4-adjacent-colour: #f04201;
+    --tile-5-adjacent-colour: #d03700;
+    --tile-6-adjacent-colour: #a82c00;
+    --tile-7-adjacent-colour: #8e2700;
+    --tile-8-adjacent-colour: #6c1d00;
+    --tile-mine-colour: #411200;
+}
+
+body {
+    /* Use readable font */
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    color: var(--text-colour);
+    background-color: var(--background-colour);
 }
 
 /* Buttons on the main menu */
 .menu-button {
+    color: var(--text-colour);
+    background-color: var(--menu-button-background-colour);
     margin: 3px;
-    border: 1px solid gray;
+    border: 1px solid var(--menu-button-border-colour);
     border-radius: 10px 10px;
 }
 
 /* When a button is active */
 .menu-button.selected {
     margin: 2px;
-    border: 2px solid red;
+    border: 2px solid var(--menu-button-selected-colour);
 }
 
 /* Default tile state */
 .tile {
     width: 30px;
     height: 30px;
-    background-color: white;
+    background-color: var(--tile-background-colour);
 }
 
 /* When a tile is flagged */
 .tile.flagged {
-    background-color: rosybrown;
+    background-color: var(--tile-flagged-colour);
 }
 
 /* How many adjacent mines there are */
 .tile.revealed.mines0 {
-    background-color: lightslategray;
+    background-color: var(--tile-0-adjacent-colour);
 }
 
 .tile.revealed.mines1 {
-    background-color: orange;
+    background-color: var(--tile-1-adjacent-colour);
 }
 
-.tile.revealed.mines2,
+.tile.revealed.mines2 {
+    background-color: var(--tile-2-adjacent-colour);
+}
+
 .tile.revealed.mines3 {
-    background-color: darkorange;
+    background-color: var(--tile-3-adjacent-colour);
 }
 
-.tile.revealed.mines4,
-.tile.revealed.mines5,
-.tile.revealed.mines6,
-.tile.revealed.mines7,
+.tile.revealed.mines4 {
+    background-color: var(--tile-4-adjacent-colour);
+}
+
+.tile.revealed.mines5 {
+    background-color: var(--tile-5-adjacent-colour);
+}
+
+.tile.revealed.mines6 {
+    background-color: var(--tile-6-adjacent-colour);
+}
+
+.tile.revealed.mines7 {
+    background-color: var(--tile-7-adjacent-colour);
+}
+
 .tile.revealed.mines8 {
-    background-color: orangered;
+    background-color: var(--tile-8-adjacent-colour);
 }
 
 /* When tile is a mine */
 .tile.revealed.mine {
-    background-color: darkred;
+    background-color: var(--tile-mine-colour);
 }
