@@ -38,6 +38,7 @@ export default class State {
   }
 
   startMainMenu() {
+    // Unload the game controller and load the main menu
     this.gameController = null;
     this.mainMenu = new MainMenu(this.databaseService);
   }
