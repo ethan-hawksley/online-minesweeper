@@ -3,7 +3,8 @@ import PlayGame from './PlayGame.js';
 import ModeSelector from './ModeSelector.js';
 
 export default class MainMenu {
-  constructor() {
+  constructor(databaseService) {
+    this.databaseService = databaseService;
     // Create element to contain sections of main menu
     this.element = document.createElement('div');
 
