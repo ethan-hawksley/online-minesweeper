@@ -61,7 +61,29 @@ export default class DatabaseService {
 
       // If error encountered whilst retrieving value
       request.onerror = (e) => {
-        console.error(e);
+        reject(e);
+      };
+    });
+  }
+
+  updateBestScore(mode, difficulty, score) {
+    // Use promises to wrap the asynchronous operation
+    return new Promise((resolve, reject) => {
+      if (!this.db) {
+        return reject('Database not initialised');
+      }
+      const transaction = this.db.transaction(['bestScores'], 'readwrite');
+      const store = transaction.objectStore('bestScores');
+      // Update the specific entry for the mode and difficulty
+      const request = store.put({ id: `${mode}-${difficulty}`, value: score });
+
+      // If successful setting the value
+      request.onsuccess = () => {
+        resolve();
+      };
+
+      // If error encountered whilst setting value
+      request.onerror = (e) => {
         reject(e);
       };
     });
