@@ -146,18 +146,23 @@ export default class DifficultySelector {
   }
 
   getCustomOptions() {
+    // Ensure all custom values are greater than or equal to 1
     const parseAndValidate = (value) => {
       const parsedValue = parseInt(value, 10);
+      // Invalid numbers are parsed to NaN, so they must be excluded
       if (isNaN(parsedValue) || parsedValue <= 0) {
         return 1;
       }
       return parsedValue;
     };
+    // Return the validated values passed by the user
     return {
       width: parseAndValidate(this.customWidthInput.value),
       height: parseAndValidate(this.customHeightInput.value),
       mineCount: parseAndValidate(this.customMineCountInput.value),
-      timeLimit: parseAndValidate(this.customTimeLimitInput.value),
+      modeSettings: {
+        timeLimit: parseAndValidate(this.customTimeLimitInput.value),
+      },
     };
   }
 }
