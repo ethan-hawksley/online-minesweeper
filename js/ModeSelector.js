@@ -60,9 +60,9 @@ export default class ModeSelector {
     switch (difficulty) {
       case 'standard':
         options = {
-          width: 9,
-          height: 9,
-          mineCount: 10,
+          width: 7,
+          height: 7,
+          mineCount: 6,
           modeSettings: {
             timeLimit: 200,
           },
@@ -70,9 +70,9 @@ export default class ModeSelector {
         break;
       case 'hard':
         options = {
-          width: 16,
-          height: 16,
-          mineCount: 20,
+          width: 11,
+          height: 11,
+          mineCount: 15,
           modeSettings: {
             timeLimit: 400,
           },
@@ -80,9 +80,9 @@ export default class ModeSelector {
         break;
       case 'expert':
         options = {
-          width: 30,
-          height: 20,
-          mineCount: 50,
+          width: 18,
+          height: 14,
+          mineCount: 30,
           modeSettings: {
             timeLimit: 700,
           },
