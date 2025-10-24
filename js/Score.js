@@ -1,6 +1,9 @@
+import BestScore from './BestScore.js';
+
 export default class Score {
-  constructor(mode, difficulty, modeSettings) {
+  constructor(databaseService, mode, difficulty, modeSettings) {
     // Store parameters as attributes
+    this.databaseService = databaseService;
     this.mode = mode;
     this.difficulty = difficulty;
     this.modeSettings = modeSettings;
@@ -8,7 +11,12 @@ export default class Score {
     // Create element to represent the class
     this.element = document.createElement('div');
     this.scoreIndicator = document.createElement('h2');
-    this.element.append(this.scoreIndicator);
+
+    // Initialise BestScore
+    this.bestScore = new BestScore(databaseService, mode, difficulty);
+
+    // Display the composite elements
+    this.element.append(this.scoreIndicator, this.bestScore.element);
 
     // Initialise variables as null
     this.score = null;
