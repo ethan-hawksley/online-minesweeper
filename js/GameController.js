@@ -42,7 +42,6 @@ export default class GameController {
 
     this.createGrid();
     const tiles = this.setupTiles();
-    this.setupMineLocations();
 
     this.element.append(title, this.scoreManager.element, tiles);
     // Render the game element
