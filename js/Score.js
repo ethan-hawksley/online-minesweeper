@@ -65,6 +65,14 @@ export default class Score {
     }, 1000 /* 1 second */);
   }
 
+  tileRevealed() {
+    const REVEALED_TILE_TIME_BONUS = 5;
+    if (this.mode === 'timeAttack') {
+      // Add additional time when tiles are revealed in time attack mode
+      this.score += REVEALED_TILE_TIME_BONUS;
+    }
+  }
+
   gameOver() {
     // Stop modifying the score
     clearInterval(this.interval);
