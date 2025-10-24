@@ -1,9 +1,13 @@
 import Tile from './Tile.js';
+import ScoreManager from './ScoreManager.js';
 
 export default class GameController {
-  constructor(_mode, width, height, mineCount, _timeLimit) {
+  constructor(mode, difficulty, width, height, mineCount, modeSettings) {
     // Create div element to store HTML
     this.element = document.createElement('div');
+    const title = document.createElement('h1');
+    title.textContent = 'MineDuo';
+    this.scoreManager = new ScoreManager(mode, difficulty, modeSettings);
     this.grid = null;
     this.height = height;
     this.width = width;
@@ -13,11 +17,15 @@ export default class GameController {
     this.active = true;
 
     this.createGrid();
-    this.setupTiles();
+    const tiles = this.setupTiles();
     this.setupMineLocations();
 
+    this.element.append(title, this.scoreManager.element, tiles);
     // Render the game element
     document.getElementById('content').replaceChildren(this.element);
+
+    // Listen for the gameOver event broadcasted by the Score
+    document.addEventListener('gameOver', () => this.gameOver());
   }
 
   createGrid() {
@@ -60,7 +68,7 @@ export default class GameController {
       gridElement.append(gridRowElement);
     }
     // Show the grid on the element
-    this.element.append(gridElement);
+    return gridElement;
   }
 
   setupMineLocations(safeY, safeX) {
