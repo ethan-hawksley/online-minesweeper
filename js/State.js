@@ -1,8 +1,10 @@
 import MainMenu from './MainMenu.js';
 import GameController from './GameController.js';
+import DatabaseService from './DatabaseService.js';
 
 export default class State {
   constructor() {
+    this.databaseService = new DatabaseService();
     // The Main Menu renders itself during initialisation
     this.mainMenu = new MainMenu();
     this.gameController = null;
@@ -25,6 +27,7 @@ export default class State {
     this.mainMenu = null;
     // Pass the settings for the game
     this.gameController = new GameController(
+      this.databaseService,
       mode,
       difficulty,
       width,
@@ -36,6 +39,6 @@ export default class State {
 
   startMainMenu() {
     this.gameController = null;
-    this.mainMenu = new MainMenu();
+    this.mainMenu = new MainMenu(this.databaseService);
   }
 }
