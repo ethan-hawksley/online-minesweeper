@@ -10,25 +10,27 @@ export default class State {
     // React to the Start Game button being pressed
     document.addEventListener('startGame', (e) => {
       // Destructure the properties passed in the event
-      const { mode, width, height, mineCount, timeLimit } =
+      const { mode, difficulty, width, height, mineCount, modeSettings } =
         e.detail.gameSettings;
-      this.startGame(mode, width, height, mineCount, timeLimit);
+      // Start the game with the passed properties
+      this.startGame(mode, difficulty, width, height, mineCount, modeSettings);
     });
     document.addEventListener('startMainMenu', () => {
       this.startMainMenu();
     });
   }
 
-  startGame(mode, width, height, mineCount, timeLimit) {
+  startGame(mode, difficulty, width, height, mineCount, modeSettings) {
     // Unload the main menu and load the game controller
     this.mainMenu = null;
     // Pass the settings for the game
     this.gameController = new GameController(
       mode,
+      difficulty,
       width,
       height,
       mineCount,
-      timeLimit,
+      modeSettings,
     );
   }
 
