@@ -2,19 +2,43 @@ import Tile from './Tile.js';
 import ScoreManager from './ScoreManager.js';
 
 export default class GameController {
-  constructor(mode, difficulty, width, height, mineCount, modeSettings) {
-    // Create div element to store HTML
-    this.element = document.createElement('div');
-    const title = document.createElement('h1');
-    title.textContent = 'MineDuo';
-    this.scoreManager = new ScoreManager(mode, difficulty, modeSettings);
-    this.grid = null;
+  constructor(
+    databaseService,
+    mode,
+    difficulty,
+    width,
+    height,
+    mineCount,
+    modeSettings,
+  ) {
+    // Store passed arguments as attributes for later use
+    this.databaseService = databaseService;
+    this.mode = mode;
+    this.difficulty = difficulty;
     this.height = height;
     this.width = width;
     this.mineCount = mineCount;
+    this.modeSettings = modeSettings;
+
+    this.grid = null;
     this.tilesLeft = this.height * this.width - this.mineCount;
     this.firstClick = true;
     this.active = true;
+
+    // Create div element to store HTML
+    this.element = document.createElement('div');
+
+    // Create title to show name of game
+    const title = document.createElement('h1');
+    title.textContent = 'MineDuo';
+
+    // Initialise ScoreManager
+    this.scoreManager = new ScoreManager(
+      this.databaseService,
+      this.mode,
+      this.difficulty,
+      this.modeSettings,
+    );
 
     this.createGrid();
     const tiles = this.setupTiles();
