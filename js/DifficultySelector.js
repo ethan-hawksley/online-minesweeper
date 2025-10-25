@@ -35,7 +35,6 @@ export default class DifficultySelector {
     this.customWidthInput = document.createElement('input');
     this.customWidthInput.id = 'custom-width';
     this.customWidthInput.type = 'number';
-    this.customWidthInput.value = '1';
     this.customWidthInput.min = '1';
     this.customWidthDiv.append(this.customWidthLabel, this.customWidthInput);
 
@@ -46,7 +45,6 @@ export default class DifficultySelector {
     this.customHeightInput = document.createElement('input');
     this.customHeightInput.id = 'custom-height';
     this.customHeightInput.type = 'number';
-    this.customHeightInput.value = '1';
     this.customHeightInput.min = '1';
     this.customHeightDiv.append(this.customHeightLabel, this.customHeightInput);
 
@@ -57,7 +55,6 @@ export default class DifficultySelector {
     this.customMineCountInput = document.createElement('input');
     this.customMineCountInput.id = 'custom-mine-count';
     this.customMineCountInput.type = 'number';
-    this.customMineCountInput.value = '1';
     this.customMineCountInput.min = '1';
     this.customMineCountDiv.append(
       this.customMineCountLabel,
@@ -71,7 +68,6 @@ export default class DifficultySelector {
     this.customTimeLimitInput = document.createElement('input');
     this.customTimeLimitInput.id = 'custom-time-limit';
     this.customTimeLimitInput.type = 'number';
-    this.customTimeLimitInput.value = '1';
     this.customTimeLimitInput.min = '1';
     this.customTimeLimitDiv.append(
       this.customTimeLimitLabel,
