@@ -1,12 +1,14 @@
 import MainMenu from './MainMenu.js';
 import GameController from './GameController.js';
 import DatabaseService from './DatabaseService.js';
+import AudioService from './AudioService.js';
 
 export default class State {
   constructor() {
     this.databaseService = new DatabaseService();
+    this.audioService = new AudioService();
     // The Main Menu renders itself during initialisation
-    this.mainMenu = new MainMenu();
+    this.mainMenu = null;
     this.gameController = null;
 
     // React to the Start Game button being pressed
@@ -20,6 +22,15 @@ export default class State {
     document.addEventListener('startMainMenu', () => {
       this.startMainMenu();
     });
+
+    this.startMainMenu();
+
+    this.audioService.preload([
+      'button-click',
+      'game-over',
+      'game-won',
+      'tile-click',
+    ]);
   }
 
   startGame(mode, difficulty, width, height, mineCount, modeSettings) {
@@ -28,6 +39,7 @@ export default class State {
     // Pass the settings for the game
     this.gameController = new GameController(
       this.databaseService,
+      this.audioService,
       mode,
       difficulty,
       width,
@@ -40,6 +52,6 @@ export default class State {
   startMainMenu() {
     // Unload the game controller and load the main menu
     this.gameController = null;
-    this.mainMenu = new MainMenu(this.databaseService);
+    this.mainMenu = new MainMenu(this.databaseService, this.audioService);
   }
 }
