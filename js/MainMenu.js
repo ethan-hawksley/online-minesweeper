@@ -2,6 +2,7 @@ import MenuHeader from './MenuHeader.js';
 import PlayGame from './PlayGame.js';
 import ModeSelector from './ModeSelector.js';
 import Settings from './Settings.js';
+import MenuBestScore from './MenuBestScore.js';
 
 export default class MainMenu {
   constructor(databaseService, audioService) {
@@ -18,6 +19,10 @@ export default class MainMenu {
       'standard',
       'classic',
     );
+    this.menuBestScore = new MenuBestScore(
+      this.audioService,
+      this.databaseService,
+    );
     this.settings = new Settings(this.audioService);
 
     // Display the elements of each part
@@ -25,6 +30,7 @@ export default class MainMenu {
       this.menuHeader.element,
       this.playGame.element,
       this.modeSelector.element,
+      this.menuBestScore.element,
       this.settings.element,
     );
 
