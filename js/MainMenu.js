@@ -4,16 +4,21 @@ import ModeSelector from './ModeSelector.js';
 import Settings from './Settings.js';
 
 export default class MainMenu {
-  constructor(databaseService) {
+  constructor(databaseService, audioService) {
     this.databaseService = databaseService;
+    this.audioService = audioService;
     // Create element to contain sections of main menu
     this.element = document.createElement('div');
 
     // Initialise the parts of the main menu
     this.menuHeader = new MenuHeader();
-    this.playGame = new PlayGame();
-    this.modeSelector = new ModeSelector('standard', 'classic');
-    this.settings = new Settings();
+    this.playGame = new PlayGame(this.audioService);
+    this.modeSelector = new ModeSelector(
+      this.audioService,
+      'standard',
+      'classic',
+    );
+    this.settings = new Settings(this.audioService);
 
     // Display the elements of each part
     this.element.append(
