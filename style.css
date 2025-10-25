@@ -47,6 +47,11 @@ body {
     background-color: var(--background-colour);
 }
 
+#splash-text {
+    /* Don't shift layout upon loading joke */
+    min-height: 4rem;
+}
+
 /* Buttons on the main menu */
 .menu-button {
     color: var(--text-colour);
