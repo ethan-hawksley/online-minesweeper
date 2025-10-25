@@ -1,5 +1,6 @@
 export default class DifficultySelector {
-  constructor(initialDifficulty, initialMode) {
+  constructor(audioService, initialDifficulty, initialMode) {
+    this.audioService = audioService;
     // Start with no difficulty
     this.selectedDifficulty = null;
 
@@ -79,15 +80,19 @@ export default class DifficultySelector {
 
     // When buttons are clicked, set the difficulty to the corresponding one
     this.standardDifficultyButton.addEventListener('click', () => {
+      this.audioService.playAudio('button-click');
       this.setDifficulty('standard');
     });
     this.hardDifficultyButton.addEventListener('click', () => {
+      this.audioService.playAudio('button-click');
       this.setDifficulty('hard');
     });
     this.expertDifficultyButton.addEventListener('click', () => {
+      this.audioService.playAudio('button-click');
       this.setDifficulty('expert');
     });
     this.customDifficultyButton.addEventListener('click', () => {
+      this.audioService.playAudio('button-click');
       this.setDifficulty('custom');
     });
 
