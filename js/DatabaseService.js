@@ -5,7 +5,7 @@ export default class DatabaseService {
 
     // If the database requires creation or upgrading
     request.addEventListener('upgradeneeded', (e) => {
-      console.log('upgradeneeded');
+      console.log('Creating or upgrading database');
       this.db = e.target.result;
 
       // Delete all existing stores
@@ -36,13 +36,12 @@ export default class DatabaseService {
 
     // If request to open the database is successful
     request.addEventListener('success', (e) => {
-      console.log('success');
       this.db = e.target.result;
     });
 
     // If request to open the database errored
     request.addEventListener('error', (e) => {
-      console.error(e);
+      console.error('Error whilst opening database', e);
     });
   }
 
