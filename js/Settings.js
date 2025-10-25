@@ -1,5 +1,6 @@
 export default class Settings {
-  constructor() {
+  constructor(audioService) {
+    this.audioService = audioService;
     // Retrieve whether dark mode is set already
     this.darkMode = localStorage.getItem('darkMode') === 'true';
 
@@ -10,6 +11,8 @@ export default class Settings {
     this.darkModeButton.className = 'menu-button';
     // Toggle dark mode whenever clicked
     this.darkModeButton.addEventListener('click', () => {
+      // Give audio feedback
+      this.audioService.playAudio('button-click');
       this.toggleDarkMode();
     });
 
