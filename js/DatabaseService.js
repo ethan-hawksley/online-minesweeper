@@ -46,6 +46,39 @@ export default class DatabaseService {
     });
   }
 
+  getBestScores() {
+    // Use promises to wrap the asynchronous operation
+    return new Promise((resolve, reject) => {
+      if (!this.db) {
+        return reject('Database not initialised');
+      }
+      const transaction = this.db.transaction('bestScores', 'readonly');
+      const store = transaction.objectStore('bestScores');
+      // Get all the best scores set so far
+      const request = store.getAll();
+
+      // If successful retrieving values
+      request.onsuccess = () => {
+        if (request.result) {
+          const scores = [];
+          for (const score of request.result) {
+            // The id is stored as mode-difficulty, split into two variables
+            const [mode, difficulty] = score.id.split('-');
+            scores.push({ mode, difficulty, score: score.value });
+          }
+          resolve(scores);
+        } else {
+          resolve(null);
+        }
+      };
+
+      // If error encountered whilst retrieving values
+      request.onerror = (e) => {
+        reject(e);
+      };
+    });
+  }
+
   getBestScore(mode, difficulty) {
     // Use promises to wrap the asynchronous operation
     return new Promise((resolve, reject) => {
