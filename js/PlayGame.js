@@ -1,5 +1,5 @@
 export default class PlayGame {
-  constructor() {
+  constructor(audioService) {
     // Create the HTML representation of the button
     this.element = document.createElement('div');
 
@@ -9,6 +9,8 @@ export default class PlayGame {
     playGameButton.className = 'menu-button';
 
     playGameButton.addEventListener('click', () => {
+      // Give audio feedback
+      audioService.playAudio('button-click');
       // Dispatch startingGame, so that the MainMenu can collect the mode data and then broadcast startGame
       document.dispatchEvent(new CustomEvent('startingGame'));
     });
