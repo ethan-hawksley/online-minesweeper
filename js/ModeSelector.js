@@ -1,7 +1,8 @@
 import DifficultySelector from './DifficultySelector.js';
 
 export default class ModeSelector {
-  constructor(initialDifficulty, initialMode) {
+  constructor(audioService, initialDifficulty, initialMode) {
+    this.audioService = audioService;
     // Initially start with no selected mode
     this.selectedMode = null;
     // Create element to store all parts
@@ -9,6 +10,7 @@ export default class ModeSelector {
 
     // Initialise the difficulty selector which is part of the mode selector
     this.difficultySelector = new DifficultySelector(
+      audioService,
       initialDifficulty,
       initialMode,
     );
@@ -24,10 +26,12 @@ export default class ModeSelector {
 
     // When buttons are clicked change the mode
     this.classicModeButton.addEventListener('click', () => {
+      this.audioService.playAudio('button-click');
       this.setMode('classic');
     });
 
     this.timeAttackModeButton.addEventListener('click', () => {
+      this.audioService.playAudio('button-click');
       this.setMode('timeAttack');
     });
 
