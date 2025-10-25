@@ -56,7 +56,7 @@ body {
 .menu-button {
     color: var(--text-colour);
     background-color: var(--menu-button-background-colour);
-     /*The cursor should be a pointer when using buttons */
+     /* The cursor should be a pointer when using buttons */
     cursor: pointer;
     margin: 3px;
     border: 1px solid var(--menu-button-border-colour);
