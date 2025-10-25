@@ -12,18 +12,18 @@ export default class ConnectionService {
 
   createLobby() {
     console.log('Creating lobby');
-    this.peer = new Peer();
+    this.peer = new Peer(Math.random().toString().substring(2, 8) + 'mineduo');
     this.peer.on('open', (gameId) => {
       console.log('Peer opened with id', gameId);
-      this.gameId = gameId;
+      this.gameId = gameId.slice(0, -7);
+      console.log(this.gameId);
       this.isHost = true;
       document.dispatchEvent(
-        new CustomEvent('lobbyCreated', { detail: { gameId: gameId } }),
+        new CustomEvent('lobbyCreated', { detail: { gameId: this.gameId } }),
       );
     });
 
     this.peer.on('connection', (connection) => {
-      console.log('Connection established with peer', connection);
       this.connection = connection;
       this.handleConnection();
     });
@@ -46,9 +46,18 @@ export default class ConnectionService {
   }
 
   joinLobby(gameId) {
+    console.log('Joining lobby', gameId + 'mineduo');
     this.peer = new Peer();
-    this.connection = this.peer.connect(gameId);
-    this.handleConnection();
+
+    this.peer.on('open', () => {
+      this.connection = this.peer.connect(gameId + 'mineduo');
+      this.handleConnection();
+    });
+
+    this.peer.on('error', (error) => {
+      console.error('Error during connection', error);
+      document.dispatchEvent(new CustomEvent('connectionLost'));
+    });
   }
 
   handleConnection() {
