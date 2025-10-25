@@ -49,7 +49,7 @@ body {
 
 #splash-text {
     /* Don't shift layout upon loading joke */
-    min-height: 4rem;
+    min-height: 5rem;
 }
 
 /* Buttons on the main menu */
