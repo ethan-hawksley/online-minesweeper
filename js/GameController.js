@@ -4,6 +4,7 @@ import ScoreManager from './ScoreManager.js';
 export default class GameController {
   constructor(
     databaseService,
+    audioService,
     mode,
     difficulty,
     width,
@@ -13,6 +14,7 @@ export default class GameController {
   ) {
     // Store passed arguments as attributes for later use
     this.databaseService = databaseService;
+    this.audioService = audioService;
     this.mode = mode;
     this.difficulty = difficulty;
     this.height = height;
@@ -191,6 +193,9 @@ export default class GameController {
     // If all non-mine tiles have been revealed
     if (this.tilesLeft === 0) {
       this.gameWon();
+    } else {
+      // Give audio feedback only when the game hasn't ended
+      this.audioService.playAudio('tile-click');
     }
   }
 
@@ -207,11 +212,16 @@ export default class GameController {
     } else {
       selectedTile.flagTile();
     }
+
+    // Play sound whenever flagging and unflagging
+    this.audioService.playAudio('tile-click');
   }
 
   gameOver() {
     // Disable the game running
     this.active = false;
+    // Play game over noise
+    this.audioService.playAudio('game-over');
     // Call game over logic
     this.scoreManager.gameOver();
     setTimeout(() => {
@@ -223,6 +233,8 @@ export default class GameController {
   gameWon() {
     // Disable the game running
     this.active = false;
+    // Play game won noise
+    this.audioService.playAudio('game-won');
     // Call game won logic
     this.scoreManager.gameWon();
     setTimeout(() => {
