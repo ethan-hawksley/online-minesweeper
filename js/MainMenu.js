@@ -3,9 +3,11 @@ import PlayGame from './PlayGame.js';
 import ModeSelector from './ModeSelector.js';
 import Settings from './Settings.js';
 import MenuBestScore from './MenuBestScore.js';
+import LobbySelector from './LobbySelector.js';
 
 export default class MainMenu {
-  constructor(databaseService, audioService) {
+  constructor(connectionService, databaseService, audioService) {
+    this.connectionService = connectionService;
     this.databaseService = databaseService;
     this.audioService = audioService;
     // Create element to contain sections of main menu
@@ -14,6 +16,10 @@ export default class MainMenu {
     // Initialise the parts of the main menu
     this.menuHeader = new MenuHeader();
     this.playGame = new PlayGame(this.audioService);
+    this.lobbySelector = new LobbySelector(
+      this.connectionService,
+      this.audioService,
+    );
     this.modeSelector = new ModeSelector(
       this.audioService,
       'standard',
@@ -29,6 +35,7 @@ export default class MainMenu {
     this.element.append(
       this.menuHeader.element,
       this.playGame.element,
+      this.lobbySelector.element,
       this.modeSelector.element,
       this.menuBestScore.element,
       this.settings.element,

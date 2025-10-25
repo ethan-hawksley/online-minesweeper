@@ -2,9 +2,11 @@ import MainMenu from './MainMenu.js';
 import GameController from './GameController.js';
 import DatabaseService from './DatabaseService.js';
 import AudioService from './AudioService.js';
+import ConnectionService from './ConnectionService.js';
 
 export default class State {
   constructor() {
+    this.connectionService = new ConnectionService();
     this.databaseService = new DatabaseService();
     this.audioService = new AudioService();
     // The Main Menu renders itself during initialisation
@@ -52,6 +54,10 @@ export default class State {
   startMainMenu() {
     // Unload the game controller and load the main menu
     this.gameController = null;
-    this.mainMenu = new MainMenu(this.databaseService, this.audioService);
+    this.mainMenu = new MainMenu(
+      this.connectionService,
+      this.databaseService,
+      this.audioService,
+    );
   }
 }

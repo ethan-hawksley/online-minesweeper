@@ -14,10 +14,12 @@
   "author": "",
   "type": "module",
   "main": "js/State.js",
-  "scripts": {
-  },
+  "scripts": {},
   "devDependencies": {
     "eslint": "^9.36.0",
     "prettier": "^3.6.2"
+  },
+  "dependencies": {
+    "peerjs": "^1.5.5"
   }
 }
