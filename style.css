@@ -56,7 +56,7 @@ body {
 .menu-button {
     color: var(--text-colour);
     background-color: var(--menu-button-background-colour);
-     /* The cursor should be a pointer when using buttons */
+    /* The cursor should be a pointer when using buttons */
     cursor: pointer;
     margin: 3px;
     border: 1px solid var(--menu-button-border-colour);
@@ -67,6 +67,14 @@ body {
 .menu-button.selected {
     margin: 2px;
     border: 2px solid var(--menu-button-selected-colour);
+}
+
+/* Input textboxes on the main menu */
+.menu-textbox {
+    color: var(--text-colour);
+    background-color: var(--menu-button-background-colour);
+    border: 1px solid var(--menu-button-border-colour);
+    border-radius: 10px 10px;
 }
 
 /* Default tile state */
