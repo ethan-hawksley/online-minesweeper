@@ -7,6 +7,7 @@ export default class LobbySelector {
     // Create element to encapsulate lobby controls
     this.element = document.createElement('div');
 
+    // Create button for creating lobbies
     this.createLobbyButton = document.createElement('button');
     this.createLobbyButton.className = 'menu-button';
     this.createLobbyButton.textContent = 'Create Lobby';
@@ -17,6 +18,7 @@ export default class LobbySelector {
       this.connectionService.createLobby();
     });
 
+    // Create elements for joining lobbies
     this.joinLobbyButton = document.createElement('button');
     this.joinLobbyButton.className = 'menu-button';
     this.joinLobbyButton.textContent = 'Join Lobby';
