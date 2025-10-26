@@ -40,6 +40,7 @@ export default class State {
     this.mainMenu = null;
     // Pass the settings for the game
     this.gameController = new GameController(
+      this.connectionService,
       this.databaseService,
       this.audioService,
       mode,
