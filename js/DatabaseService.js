@@ -51,6 +51,7 @@ export default class DatabaseService {
       if (!this.db) {
         return reject('Database not initialised');
       }
+      // Read from the bestScores table
       const transaction = this.db.transaction('bestScores', 'readonly');
       const store = transaction.objectStore('bestScores');
       // Get all the best scores set so far
@@ -84,6 +85,7 @@ export default class DatabaseService {
       if (!this.db) {
         return reject('Database not initialised');
       }
+      // Read from the bestScores table
       const transaction = this.db.transaction('bestScores', 'readonly');
       const store = transaction.objectStore('bestScores');
       // Get the specific entry for the mode and difficulty
@@ -111,6 +113,7 @@ export default class DatabaseService {
       if (!this.db) {
         return reject('Database not initialised');
       }
+      // Write to the bestScores table
       const transaction = this.db.transaction('bestScores', 'readwrite');
       const store = transaction.objectStore('bestScores');
       // Update the specific entry for the mode and difficulty
@@ -134,6 +137,7 @@ export default class DatabaseService {
       if (!this.db) {
         return reject('Database not initialised');
       }
+      // Read from the streak table
       const transaction = this.db.transaction('streak', 'readonly');
       const store = transaction.objectStore('streak');
       // Get the current streak
@@ -161,6 +165,7 @@ export default class DatabaseService {
       if (!this.db) {
         return reject('Database not initialised');
       }
+      // Write to the streak table
       const transaction = this.db.transaction('streak', 'readwrite');
       const store = transaction.objectStore('streak');
       // Update the held current streak
