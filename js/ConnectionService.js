@@ -72,6 +72,7 @@ export default class ConnectionService {
     });
 
     this.peer.on('disconnected', () => {
+      // When disconnected from the server due to network issues
       console.warn(
         'Disconnected from the PeerJS server. Attempting to reconnect...',
       );
@@ -79,12 +80,14 @@ export default class ConnectionService {
     });
 
     this.peer.on('close', () => {
+      // When connection is gracefully closed
       console.log('Connection to the PeerJS server has been closed.');
       document.dispatchEvent(new CustomEvent('connectionLost'));
       this.reset();
     });
 
     this.peer.on('error', (error) => {
+      // When an unknown error occurs
       console.error('Error during connection', error);
       document.dispatchEvent(new CustomEvent('connectionLost'));
       this.reset();
@@ -93,6 +96,7 @@ export default class ConnectionService {
 
   handleConnection() {
     this.connection.on('open', () => {
+      // When connection is opened between host and member
       console.log('Connection open');
       document.dispatchEvent(
         new CustomEvent('connectionEstablished', {
@@ -102,6 +106,7 @@ export default class ConnectionService {
     });
 
     this.connection.on('data', (data) => {
+      // Handle data
       console.log('Data received', data);
     });
   }
