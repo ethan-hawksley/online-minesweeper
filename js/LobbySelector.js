@@ -4,6 +4,8 @@ export default class LobbySelector {
     this.connectionService = connectionService;
     this.audioService = audioService;
 
+    this.gameId = null;
+
     // Create element to encapsulate lobby controls
     this.element = document.createElement('div');
 
@@ -41,21 +43,28 @@ export default class LobbySelector {
       this.joinCodeTextbox,
     );
 
+    this.lobbyCreatedModal = document.createElement('dialog');
+
+    this.lobbyCreatedText = document.createElement('p');
+
+    this.copyToClipboardButton = document.createElement('button');
+    this.copyToClipboardButton.textContent = 'Copy to clipboard';
+    this.copyToClipboardButton.addEventListener('click', () => {
+      navigator.clipboard.writeText(this.gameId);
+      this.lobbyCreatedModal.close();
+    });
+
+    this.closeModalButton = document.createElement('button');
+    this.closeModalButton.textContent = 'Ok';
+    this.closeModalButton.addEventListener('click', () => {
+      this.lobbyCreatedModal.close();
+    });
+
     document.addEventListener('lobbyCreated', async (e) => {
       // Extract the game ID from the event details
-      const gameId = e.detail.gameId;
-      try {
-        // Attempt to write to the clipboard
-        await navigator.clipboard.writeText(gameId);
-        alert(
-          `New lobby created with code: ${gameId}. The code has been copied to the clipboard.`,
-        );
-      } catch (e) {
-        // If the clipboard fails
-        console.error(e);
-        // Do not mention the clipboard if failing to copy to the clipboard
-        alert(`New lobby created with code: ${gameId}`);
-      }
+      this.gameId = e.detail.gameId;
+      this.lobbyCreatedText.textContent = `Lobby created with ID ${gameId}`;
+      this.lobbyCreatedModal.showModal();
     });
   }
 }
