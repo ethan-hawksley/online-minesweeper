@@ -40,5 +40,22 @@ export default class LobbySelector {
       this.joinLobbyButton,
       this.joinCodeTextbox,
     );
+
+    document.addEventListener('lobbyCreated', async (e) => {
+      // Extract the game ID from the event details
+      const gameId = e.detail.gameId;
+      try {
+        // Attempt to write to the clipboard
+        await navigator.clipboard.writeText(gameId);
+        alert(
+          `New lobby created with code: ${gameId}. The code has been copied to the clipboard.`,
+        );
+      } catch (e) {
+        // If the clipboard fails
+        console.error(e);
+        // Do not mention the clipboard if failing to copy to the clipboard
+        alert(`New lobby created with code: ${gameId}`);
+      }
+    });
   }
 }
