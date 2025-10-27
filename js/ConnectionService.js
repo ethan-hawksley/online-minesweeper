@@ -15,7 +15,7 @@ export default class ConnectionService {
     this.peer = null;
     this.connection = null;
     this.gameId = null;
-    this.isHost = false;
+    this.isHost = true;
     // Track whether connected to a peer
     this.connected = false;
   }
@@ -75,6 +75,8 @@ export default class ConnectionService {
 
   joinLobby(gameId) {
     console.log('Joining lobby', gameId);
+    this.isHost = false;
+
     this.peer = new Peer({
       host: 'peerjs.ethanhawksley.hackclub.app',
       path: '/myapp',
@@ -129,11 +131,13 @@ export default class ConnectionService {
     });
 
     this.connection.on('data', (data) => {
+      // When a packet is received from the peer
       console.log('Data received:', data);
       this.handleIncomingData(data);
     });
 
     this.connection.on('close', () => {
+      // When the connection is intentionally closed
       console.log('Connection to the other user has been closed.');
       document.dispatchEvent(new CustomEvent('connectionLost'));
       this.reset();
@@ -148,13 +152,20 @@ export default class ConnectionService {
   }
 
   handleIncomingData(data) {
-    // Only allow specific events to be sent
-    const allowedNetworkEvents = new Set(['startGame']);
+    // Only allow specific events to be sent for security
+    const allowedNetworkEvents = new Set([
+      'startGame',
+      'firstRevealTile',
+      'revealTile',
+    ]);
     if (allowedNetworkEvents.has(data.type)) {
       // Dispatch event to the whole game
       document.dispatchEvent(
         new CustomEvent(data.type, { detail: data.content }),
       );
+    } else {
+      // Error when a non-allowed type is received
+      console.error('Invalid data received:', data);
     }
   }
 
@@ -178,6 +189,29 @@ export default class ConnectionService {
         mineCount,
         modeSettings,
         isFirstPlayer,
+      },
+    });
+  }
+
+  firstRevealTile(y, x, minePositions) {
+    // Reveal a tile to the peer and inform where the mines are located
+    this.connection?.send({
+      type: 'firstRevealTile',
+      content: {
+        y,
+        x,
+        minePositions,
+      },
+    });
+  }
+
+  revealTile(y, x) {
+    // Reveal a tile to the peer
+    this.connection?.send({
+      type: 'revealTile',
+      content: {
+        y,
+        x,
       },
     });
   }
