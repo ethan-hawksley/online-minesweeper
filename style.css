@@ -2,9 +2,11 @@
 body {
     --text-colour: black;
     --background-colour: white;
+    --disabled-text-colour: #2c2c2c;
     --menu-button-background-colour: lightgrey;
     --menu-button-border-colour: grey;
     --menu-button-selected-colour: red;
+    --menu-modal-border-colour: black;
     --tile-background-colour: lightgrey;
     --tile-flagged-colour: rosybrown;
     --tile-0-adjacent-colour: lightslategrey;
@@ -23,9 +25,11 @@ body {
 body.dark-mode {
     --text-colour: white;
     --background-colour: black;
+    --disabled-text-colour: #adadad;
     --menu-button-background-colour: #555555;
     --menu-button-border-colour: #1b1b1b;
     --menu-button-selected-colour: #9e0000;
+    --menu-modal-border-colour: white;
     --tile-background-colour: darkgrey;
     --tile-flagged-colour: rosybrown;
     --tile-0-adjacent-colour: lightslategrey;
@@ -69,12 +73,23 @@ body {
     border: 2px solid var(--menu-button-selected-colour);
 }
 
+/* When a button is disabled */
+.menu-button:disabled {
+    color: var(--disabled-text-colour);
+}
+
 /* Input textboxes on the main menu */
 .menu-textbox {
     color: var(--text-colour);
     background-color: var(--menu-button-background-colour);
     border: 1px solid var(--menu-button-border-colour);
     border-radius: 10px 10px;
+}
+
+/* Modal popups on the main menu */
+.menu-modal {
+    color: var(--text-colour);
+    background-color: var(--background-colour);
 }
 
 /* Default tile state */
