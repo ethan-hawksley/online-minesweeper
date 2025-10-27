@@ -15,19 +15,35 @@ export default class PlayGame {
       document.dispatchEvent(new CustomEvent('startingGame'));
     });
 
-    document.addEventListener('connectionEstablished', (e) => {
+    this._onConnectionEstablished = (e) => {
       // Disable the play game button if the player is not the host
       playGameButton.disabled = !e.detail.isHost;
-    });
+    };
+    document.addEventListener(
+      'connectionEstablished',
+      this._onConnectionEstablished,
+    );
 
-    document.addEventListener('lobbyCreated', () => {
+    this._onLobbyCreated = () => {
       playGameButton.disabled = true;
-    });
+    };
+    document.addEventListener('lobbyCreated', this._onLobbyCreated);
 
-    document.addEventListener('connectionLost', () => {
+    this._onConnectionLost = () => {
       playGameButton.disabled = false;
-    });
+    };
+    document.addEventListener('connectionLost', this._onConnectionLost);
 
     this.element.append(playGameButton);
+  }
+
+  destroy() {
+    // Cleanup global listeners
+    document.removeEventListener(
+      'connectionEstablished',
+      this._onConnectionEstablished,
+    );
+    document.removeEventListener('lobbyCreated', this._onLobbyCreated);
+    document.removeEventListener('connectionLost', this._onConnectionLost);
   }
 }
