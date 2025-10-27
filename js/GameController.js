@@ -273,7 +273,7 @@ export default class GameController {
     const selectedTile = this.grid[y][x];
     // Do not unflag a tile that's already revealed
     if (!selectedTile.isRevealed) {
-      selectedTile.flagTile(isSecondary);
+      selectedTile.unflagTile();
       this.audioService.playAudio('tile-click');
     }
   }
