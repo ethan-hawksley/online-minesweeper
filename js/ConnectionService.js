@@ -16,7 +16,8 @@ export default class ConnectionService {
     this.connection = null;
     this.gameId = null;
     this.isHost = false;
-    this.gameInProgress = false;
+    // Track whether connected to a peer
+    this.connected = false;
   }
 
   createLobby() {
@@ -66,7 +67,7 @@ export default class ConnectionService {
     });
 
     this.peer.on('error', (error) => {
-      console.error('Error during connection', error);
+      console.error('Error during connection:', error);
       document.dispatchEvent(new CustomEvent('connectionLost'));
       this.reset();
     });
@@ -98,6 +99,7 @@ export default class ConnectionService {
       }
     });
 
+    // Don't dispatch event for this
     this.peer.on('close', () => {
       // When connection is gracefully closed
       console.log('Connection to the PeerJS server has been closed.');
@@ -107,7 +109,7 @@ export default class ConnectionService {
 
     this.peer.on('error', (error) => {
       // When an unknown error occurs
-      console.error('Error during connection', error);
+      console.error('Error during connection:', error);
       document.dispatchEvent(new CustomEvent('connectionLost'));
       this.reset();
     });
@@ -117,6 +119,8 @@ export default class ConnectionService {
     this.connection.on('open', () => {
       // When connection is opened between host and member
       console.log('Connection open');
+      // Update the connected state
+      this.connected = true;
       document.dispatchEvent(
         new CustomEvent('connectionEstablished', {
           detail: { isHost: this.isHost },
@@ -125,8 +129,56 @@ export default class ConnectionService {
     });
 
     this.connection.on('data', (data) => {
-      // Handle data
-      console.log('Data received', data);
+      console.log('Data received:', data);
+      this.handleIncomingData(data);
+    });
+
+    this.connection.on('close', () => {
+      console.log('Connection to the other user has been closed.');
+      document.dispatchEvent(new CustomEvent('connectionLost'));
+      this.reset();
+    });
+
+    this.connection.on('error', (error) => {
+      // When an unknown error occurs
+      console.error('Error during connection:', error);
+      document.dispatchEvent(new CustomEvent('connectionLost'));
+      this.reset();
+    });
+  }
+
+  handleIncomingData(data) {
+    // Only allow specific events to be sent
+    const allowedNetworkEvents = new Set(['startGame']);
+    if (allowedNetworkEvents.has(data.type)) {
+      // Dispatch event to the whole game
+      document.dispatchEvent(
+        new CustomEvent(data.type, { detail: data.content }),
+      );
+    }
+  }
+
+  startGame(
+    mode,
+    difficulty,
+    width,
+    height,
+    mineCount,
+    modeSettings,
+    isFirstPlayer,
+  ) {
+    // Inform the peer that the game has started
+    this.connection?.send({
+      type: 'startGame',
+      content: {
+        mode,
+        difficulty,
+        width,
+        height,
+        mineCount,
+        modeSettings,
+        isFirstPlayer,
+      },
     });
   }
 }
