@@ -1,5 +1,7 @@
 export default class PlayGame {
-  constructor(audioService) {
+  constructor(connectionService, audioService) {
+    this.connectionService = connectionService;
+    this.audioService = audioService;
     // Create the HTML representation of the button
     this.element = document.createElement('div');
 
@@ -7,11 +9,11 @@ export default class PlayGame {
     playGameButton.textContent = 'Play Game';
     // Assign class for consistent styling
     playGameButton.className = 'menu-button';
-    playGameButton.disabled = !e.detail.isHost;
+    playGameButton.disabled = !this.connectionService.isHost;
 
     playGameButton.addEventListener('click', () => {
       // Give audio feedback
-      audioService.playAudio('button-click');
+      this.audioService.playAudio('button-click');
       // Dispatch startingGame, so that the MainMenu can collect the mode data and then broadcast startGame
       document.dispatchEvent(new CustomEvent('startingGame'));
     });
