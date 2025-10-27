@@ -17,9 +17,15 @@ export default class PlayGame {
 
     document.addEventListener('connectionEstablished', (e) => {
       // Disable the play game button if the player is not the host
-      if (!e.detail.isHost) {
-        playGameButton.disabled = true;
-      }
+      playGameButton.disabled = !e.detail.isHost;
+    });
+
+    document.addEventListener('lobbyCreated', () => {
+      playGameButton.disabled = true;
+    });
+
+    document.addEventListener('connectionLost', () => {
+      playGameButton.disabled = false;
     });
 
     this.element.append(playGameButton);
