@@ -31,11 +31,12 @@ export default class Tile {
     }
   }
 
-  flagTile() {
+  flagTile(isSecondary) {
     this.isFlagged = true;
     // Show a flag symbol on the tile
     this.element.textContent = '🚩';
     this.element.classList.add('flagged');
+    this.element.classList.toggle('secondary', isSecondary);
   }
 
   unflagTile() {
