@@ -22,7 +22,14 @@ export default class ConnectionService {
   createLobby() {
     console.log('Creating lobby');
     // Create random six-digit ID concatenated with 'mineduo' to avoid collisions
-    this.peer = new Peer(Math.random().toString().substring(2, 8) + 'mineduo');
+    this.peer = new Peer(
+      Math.random().toString().substring(2, 10) + 'mineduo',
+      {
+        host: 'peerjs.ethanhawksley.hackclub.app',
+        path: '/myapp',
+        secure: true,
+      },
+    );
     this.peer.on('open', (gameId) => {
       console.log('Peer opened with id', gameId);
       // Remove mineduo from id
@@ -42,10 +49,14 @@ export default class ConnectionService {
 
     this.peer.on('disconnected', () => {
       // When disconnected from the server due to network issues
-      console.warn(
-        'Disconnected from the PeerJS server. Attempting to reconnect...',
-      );
-      this.peer.reconnect();
+      if (this.peer) {
+        console.warn(
+          'Disconnected from the PeerJS server. Attempting to reconnect...',
+        );
+        this.peer.reconnect();
+      } else {
+        console.warn('Disconnected from the PeerJS server.');
+      }
     });
 
     this.peer.on('close', () => {
@@ -63,7 +74,11 @@ export default class ConnectionService {
 
   joinLobby(gameId) {
     console.log('Joining lobby', gameId);
-    this.peer = new Peer();
+    this.peer = new Peer({
+      host: 'peerjs.ethanhawksley.hackclub.app',
+      path: '/myapp',
+      secure: true,
+    });
 
     this.peer.on('open', () => {
       // When peer is ready, connect to host
@@ -73,10 +88,14 @@ export default class ConnectionService {
 
     this.peer.on('disconnected', () => {
       // When disconnected from the server due to network issues
-      console.warn(
-        'Disconnected from the PeerJS server. Attempting to reconnect...',
-      );
-      this.peer.reconnect();
+      if (this.peer) {
+        console.warn(
+          'Disconnected from the PeerJS server. Attempting to reconnect...',
+        );
+        this.peer.reconnect();
+      } else {
+        console.warn('Disconnected from the PeerJS server.');
+      }
     });
 
     this.peer.on('close', () => {
