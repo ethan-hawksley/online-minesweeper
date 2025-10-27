@@ -15,6 +15,8 @@ export default class LobbySelector {
     this.createLobbyButton.textContent = 'Create Lobby';
 
     this.createLobbyButton.addEventListener('click', () => {
+      this.createLobbyButton.disabled = true;
+      this.joinLobbyButton.disabled = true;
       this.audioService.playAudio('button-click');
       // Create a new lobby
       this.connectionService.createLobby();
@@ -30,6 +32,8 @@ export default class LobbySelector {
     this.joinCodeTextbox.placeholder = 'Enter join code...';
 
     this.joinLobbyButton.addEventListener('click', () => {
+      this.createLobbyButton.disabled = true;
+      this.joinLobbyButton.disabled = true;
       this.audioService.playAudio('button-click');
       // Attempt to connect to a lobby
       this.connectionService.joinLobby(this.joinCodeTextbox.value);
@@ -43,28 +47,51 @@ export default class LobbySelector {
       this.joinCodeTextbox,
     );
 
+    // Create modal to show the result of lobby creation
     this.lobbyCreatedModal = document.createElement('dialog');
+    this.lobbyCreatedModal.className = 'menu-modal';
 
     this.lobbyCreatedText = document.createElement('p');
 
     this.copyToClipboardButton = document.createElement('button');
-    this.copyToClipboardButton.textContent = 'Copy to clipboard';
-    this.copyToClipboardButton.addEventListener('click', () => {
-      navigator.clipboard.writeText(this.gameId);
-      this.lobbyCreatedModal.close();
+    this.copyToClipboardButton.textContent = 'Copy To Clipboard';
+    this.copyToClipboardButton.addEventListener('click', async () => {
+      try {
+        // Attempt to write the game ID to the clipboard
+        await navigator.clipboard.writeText(this.gameId);
+        // Close the modal
+        this.lobbyCreatedModal.close();
+      } catch (e) {
+        console.error('Error whilst writing to clipboard', e);
+      }
     });
 
     this.closeModalButton = document.createElement('button');
     this.closeModalButton.textContent = 'Ok';
     this.closeModalButton.addEventListener('click', () => {
+      // Close the modal
       this.lobbyCreatedModal.close();
     });
+
+    this.lobbyCreatedModal.append(
+      this.lobbyCreatedText,
+      this.copyToClipboardButton,
+      this.closeModalButton,
+    );
+
+    // Add the modal to the page
+    document.body.append(this.lobbyCreatedModal);
 
     document.addEventListener('lobbyCreated', async (e) => {
       // Extract the game ID from the event details
       this.gameId = e.detail.gameId;
-      this.lobbyCreatedText.textContent = `Lobby created with ID ${gameId}`;
+      this.lobbyCreatedText.textContent = `Lobby created with ID ${this.gameId}`;
       this.lobbyCreatedModal.showModal();
+    });
+
+    document.addEventListener('connectionLost', () => {
+      this.createLobbyButton.disabled = false;
+      this.joinLobbyButton.disabled = false;
     });
   }
 }
