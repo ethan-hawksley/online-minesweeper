@@ -2,7 +2,7 @@
 body {
     --text-colour: black;
     --background-colour: white;
-    --disabled-text-colour: #2c2c2c;
+    --disabled-text-colour: #6d6d6d;
     --menu-button-background-colour: lightgrey;
     --menu-button-border-colour: grey;
     --menu-button-selected-colour: red;
@@ -76,6 +76,8 @@ body {
 /* When a button is disabled */
 .menu-button:disabled {
     color: var(--disabled-text-colour);
+    /* Show stop sign cursor */
+    cursor: not-allowed;
 }
 
 /* Input textboxes on the main menu */
