@@ -13,6 +13,7 @@ export default class MenuBestScore {
     });
 
     this.bestScoresModal = document.createElement('dialog');
+    this.bestScoresModal.className = 'menu-modal';
 
     this.closeModalButton = document.createElement('button');
     this.closeModalButton.className = 'menu-button';
