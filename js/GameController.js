@@ -3,6 +3,7 @@ import ScoreManager from './ScoreManager.js';
 
 export default class GameController {
   constructor(
+    connectionService,
     databaseService,
     audioService,
     mode,
@@ -11,8 +12,10 @@ export default class GameController {
     height,
     mineCount,
     modeSettings,
+    isFirstPlayer,
   ) {
     // Store passed arguments as attributes for later use
+    this.connectionService = connectionService;
     this.databaseService = databaseService;
     this.audioService = audioService;
     this.mode = mode;
@@ -21,11 +24,12 @@ export default class GameController {
     this.width = width;
     this.mineCount = mineCount;
     this.modeSettings = modeSettings;
+    this.isFirstPlayer = isFirstPlayer;
 
     this.grid = null;
     this.tilesLeft = this.height * this.width - this.mineCount;
     this.firstClick = true;
-    this.active = true;
+    this.active = isFirstPlayer;
 
     // Create div element to store HTML
     this.element = document.createElement('div');
@@ -43,9 +47,9 @@ export default class GameController {
     );
 
     this.createGrid();
-    const tiles = this.setupTiles();
+    this.tiles = this.setupTiles();
 
-    this.element.append(title, this.scoreManager.element, tiles);
+    this.element.append(title, this.scoreManager.element, this.tiles);
     // Render the game element
     document.getElementById('content').replaceChildren(this.element);
 
@@ -59,7 +63,7 @@ export default class GameController {
     for (let y = 0; y < this.height; y++) {
       const row = [];
       for (let x = 0; x < this.width; x++) {
-        row.push(new Tile());
+        row.push(new Tile(this.isFirstPlayer));
       }
       this.grid.push(row);
     }
