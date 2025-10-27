@@ -34,6 +34,11 @@ export default class MenuBestScore {
     document.body.append(this.bestScoresModal);
   }
 
+  destroy() {
+    // Cleanup modal
+    this.bestScoresModal.remove();
+  }
+
   async displayBestScores() {
     const scores = await this.databaseService.getBestScores();
     // Create temporary fragment to store the list
