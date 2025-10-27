@@ -255,8 +255,10 @@ export default class GameController {
     const selectedTile = this.grid[y][x];
     if (selectedTile.isFlagged) {
       this.unflagTile(y, x);
+      this.connectionService.unflagTile(y, x);
     } else {
       this.flagTile(y, x, false);
+      this.connectionService.flagTile(y, x);
     }
   }
 
