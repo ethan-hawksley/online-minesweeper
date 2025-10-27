@@ -73,8 +73,8 @@ body {
     border: 2px solid var(--menu-button-selected-colour);
 }
 
-/* When a button is disabled */
-.menu-button:disabled {
+/* When an element is disabled */
+:disabled {
     color: var(--disabled-text-colour);
     /* Show stop sign cursor */
     cursor: not-allowed;
