@@ -55,6 +55,28 @@ export default class GameController {
 
     // Listen for the gameOver event broadcasted by the Score
     document.addEventListener('gameOver', () => this.gameOver());
+
+    document.addEventListener('firstRevealTile', (e) => {
+      // Place mines in the correct positions
+      for (const position of e.detail.minePositions) {
+        this.grid[position.y][position.x].isMine = true;
+      }
+      // Iterate through and enable all visibly disabled tiles
+      for (let y = 0; y < this.height; y++) {
+        for (let x = 0; x < this.width; x++) {
+          this.grid[y][x].enable();
+        }
+      }
+      this.firstClick = false;
+      // Enable interacting with the game
+      this.active = true;
+      this.revealTile(e.detail.y, e.detail.x, false, true);
+    });
+
+    document.addEventListener('revealTile', (e) => {
+      // When receive a revealTile packet over the network
+      this.revealTile(e.detail.y, e.detail.x, false, true);
+    });
   }
 
   createGrid() {
@@ -82,7 +104,7 @@ export default class GameController {
 
         // When tile clicked, reveal the tile
         gridDataElement.addEventListener('click', () => {
-          this.revealTile(y, x);
+          this.revealTile(y, x, true, false);
         });
 
         // When tile right-clicked, flag the tile
@@ -100,18 +122,20 @@ export default class GameController {
     return gridElement;
   }
 
-  setupMineLocations(safeY, safeX) {
+  generateMinePositions(safeY, safeX) {
     // Empty array of positions
     const positions = [];
+    // Fill array with all x and y coordinates
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
-        // Fill array with all x and y coordinates
+        // Skip adding the safe coordinates
         if (y === safeY && x === safeX) continue;
         positions.push({ y, x });
       }
     }
 
-    // Perform the Fisher-Yates shuffle algorithm to shuffle all the indexes.
+    // Perform the Fisher-Yates shuffle algorithm to shuffle all the indexes
+    // This ensures a linear time complexity
     for (
       let swapFromIndex = 0;
       swapFromIndex < positions.length;
@@ -123,11 +147,7 @@ export default class GameController {
       positions[swapToIndex] = temp;
     }
 
-    // Select the required amount of coordinates to set as mines.
-    for (let i = 0; i < this.mineCount; i++) {
-      const mine = positions.pop();
-      this.grid[mine.y][mine.x].isMine = true;
-    }
+    return positions.slice(0, this.mineCount);
   }
 
   getAdjacentCoordinates(y, x) {
@@ -150,21 +170,32 @@ export default class GameController {
     return adjacentCoordinates;
   }
 
-  revealTile(y, x) {
+  revealTile(y, x, isBroadcasted, isForced) {
     // Do not reveal tiles when the game is over
     if (!this.active) return;
 
-    if (this.firstClick) {
-      // Setup mines so that the first click is safe
-      this.setupMineLocations(y, x);
-      this.firstClick = false;
-    }
-
     const selectedTile = this.grid[y][x];
+
     // Do not reveal a tile twice
     if (selectedTile.isRevealed) return;
     // Do not reveal flagged tiles
-    if (selectedTile.isFlagged) return;
+    if (selectedTile.isFlagged && !isForced) return;
+
+    if (this.firstClick) {
+      // Setup mines so that the first click is safe
+      const minePositions = this.generateMinePositions(y, x);
+      for (const position of minePositions) {
+        this.grid[position.y][position.x].isMine = true;
+      }
+      this.firstClick = false;
+      if (isBroadcasted) {
+        this.connectionService.firstRevealTile(y, x, minePositions);
+      }
+    } else {
+      if (isBroadcasted) {
+        this.connectionService.revealTile(y, x);
+      }
+    }
 
     const adjacentCoordinates = this.getAdjacentCoordinates(y, x);
     // Initialise count at 0
@@ -190,7 +221,7 @@ export default class GameController {
     // If there are no adjacent mines, reveal all adjacent tiles
     if (adjacentMines === 0) {
       for (const coordinate of adjacentCoordinates) {
-        this.revealTile(coordinate.y, coordinate.x);
+        this.revealTile(coordinate.y, coordinate.x, false, false);
       }
     }
 
