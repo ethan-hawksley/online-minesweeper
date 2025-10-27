@@ -9,6 +9,7 @@ body {
     --menu-modal-border-colour: black;
     --tile-background-colour: lightgrey;
     --tile-flagged-colour: rosybrown;
+    --tile-flagged-secondary-colour: #8fbc97;
     --tile-0-adjacent-colour: lightslategrey;
     --tile-1-adjacent-colour: orange;
     --tile-2-adjacent-colour: darkorange;
@@ -32,6 +33,7 @@ body.dark-mode {
     --menu-modal-border-colour: white;
     --tile-background-colour: darkgrey;
     --tile-flagged-colour: rosybrown;
+    --tile-flagged-secondary-colour: #8fbc97;
     --tile-0-adjacent-colour: lightslategrey;
     --tile-1-adjacent-colour: orange;
     --tile-2-adjacent-colour: darkorange;
@@ -104,6 +106,10 @@ body {
 /* When a tile is flagged */
 .tile.flagged {
     background-color: var(--tile-flagged-colour);
+}
+
+.tile.flagged.secondary {
+    background-color: var(--tile-flagged-secondary-colour);
 }
 
 /* How many adjacent mines there are */
