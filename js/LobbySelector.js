@@ -98,13 +98,24 @@ export default class LobbySelector {
   }
 
   joinLobby() {
+    const gameId = this.joinCodeTextbox.value;
+    // Reset the textbox so its empty
+    this.joinCodeTextbox.value = '';
+    if (!gameId) {
+      // If no code is entered
+      alert('Please enter a code');
+      return;
+    }
+    if (gameId.length !== 8) {
+      // If a code of the wrong length is entered
+      alert('Please enter a valid 8 digit code');
+      return;
+    }
     this.createLobbyButton.disabled = true;
     this.joinLobbyButton.disabled = true;
     this.joinCodeTextbox.disabled = true;
     this.audioService.playAudio('button-click');
-    // Attempt to connect to a lobby
-    this.connectionService.joinLobby(this.joinCodeTextbox.value);
-    // Reset the textbox so its empty
-    this.joinCodeTextbox.value = '';
+    // Attempt to connect to the lobby
+    this.connectionService.joinLobby(gameId);
   }
 }
