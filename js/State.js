@@ -25,6 +25,16 @@ export default class State {
       this.startMainMenu();
     });
 
+    document.addEventListener('connectionEstablished', () => {
+      // Inform the user a connection has been made
+      this.createModal('Connected');
+    });
+
+    document.addEventListener('connectionLost', () => {
+      // Inform the user a connection has been lost
+      this.createModal('Connection Lost');
+    });
+
     this.startMainMenu();
 
     this.audioService.preload([
@@ -60,5 +70,25 @@ export default class State {
       this.databaseService,
       this.audioService,
     );
+  }
+
+  createModal(message) {
+    // Create modal element
+    const modal = document.createElement('dialog');
+    modal.className = 'menu-modal';
+    // Create element for message
+    const p = document.createElement('p');
+    p.textContent = message;
+    // Create close button
+    const button = document.createElement('button');
+    button.className = 'menu-button';
+    button.textContent = 'Ok';
+    button.addEventListener('click', () => {
+      // When clicked, delete the modal
+      modal.remove();
+    });
+    modal.append(p, button);
+    document.body.append(modal);
+    modal.showModal();
   }
 }
