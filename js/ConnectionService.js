@@ -105,7 +105,6 @@ export default class ConnectionService {
     this.peer.on('close', () => {
       // When connection is gracefully closed
       console.log('Connection to the PeerJS server has been closed.');
-      document.dispatchEvent(new CustomEvent('connectionLost'));
       this.reset();
     });
 
@@ -157,6 +156,8 @@ export default class ConnectionService {
       'startGame',
       'firstRevealTile',
       'revealTile',
+      'flagTile',
+      'unflagTile',
     ]);
     if (allowedNetworkEvents.has(data.type)) {
       // Dispatch event to the whole game
@@ -209,6 +210,26 @@ export default class ConnectionService {
     // Reveal a tile to the peer
     this.connection?.send({
       type: 'revealTile',
+      content: {
+        y,
+        x,
+      },
+    });
+  }
+
+  flagTile(y, x) {
+    this.connection?.send({
+      type: 'flagTile',
+      content: {
+        y,
+        x,
+      },
+    });
+  }
+
+  unflagTile(y, x) {
+    this.connection?.send({
+      type: 'unflagTile',
       content: {
         y,
         x,
