@@ -54,9 +54,10 @@ export default class GameController {
     document.getElementById('content').replaceChildren(this.element);
 
     // Listen for the gameOver event broadcasted by the Score
-    document.addEventListener('gameOver', () => this.gameOver());
+    this._onGameOver = () => this.gameOver();
+    document.addEventListener('gameOver', this._onGameOver);
 
-    document.addEventListener('firstRevealTile', (e) => {
+    this._onFirstRevealTile = (e) => {
       // Place mines in the correct positions
       for (const position of e.detail.minePositions) {
         this.grid[position.y][position.x].isMine = true;
@@ -71,20 +72,34 @@ export default class GameController {
       // Enable interacting with the game
       this.active = true;
       this.revealTile(e.detail.y, e.detail.x, false, true);
-    });
+    };
+    document.addEventListener('firstRevealTile', this._onFirstRevealTile);
 
-    document.addEventListener('revealTile', (e) => {
+    this._onRevealTile = (e) => {
       // When receive a revealTile packet over the network
       this.revealTile(e.detail.y, e.detail.x, false, true);
-    });
+    };
+    document.addEventListener('revealTile', this._onRevealTile);
 
-    document.addEventListener('flagTile', (e) => {
+    this._onFlagTile = (e) => {
       this.flagTile(e.detail.y, e.detail.x, true);
-    });
+    };
+    document.addEventListener('flagTile', this._onFlagTile);
 
-    document.addEventListener('unflagTile', (e) => {
+    this._onUnflagTile = (e) => {
       this.unflagTile(e.detail.y, e.detail.x);
-    });
+    };
+    document.addEventListener('unflagTile', this._onUnflagTile);
+  }
+
+  destroy() {
+    // Cleanup global listeners and elements
+    document.removeEventListener('gameOver', this._onGameOver);
+    document.removeEventListener('firstRevealTile', this._onFirstRevealTile);
+    document.removeEventListener('revealTile', this._onRevealTile);
+    document.removeEventListener('flagTile', this._onFlagTile);
+    document.removeEventListener('unflagTile', this._onUnflagTile);
+    this.element.remove();
   }
 
   createGrid() {
