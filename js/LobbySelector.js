@@ -32,13 +32,14 @@ export default class LobbySelector {
     this.joinCodeTextbox.placeholder = 'Enter join code...';
 
     this.joinLobbyButton.addEventListener('click', () => {
-      this.createLobbyButton.disabled = true;
-      this.joinLobbyButton.disabled = true;
-      this.audioService.playAudio('button-click');
-      // Attempt to connect to a lobby
-      this.connectionService.joinLobby(this.joinCodeTextbox.value);
-      // Reset the textbox so its empty
-      this.joinCodeTextbox.value = '';
+      this.joinLobby();
+    });
+
+    this.joinCodeTextbox.addEventListener('keydown', (e) => {
+      // If enter pressed in the textbox
+      if (e.key === 'Enter') {
+        this.joinLobby();
+      }
     });
 
     this.element.append(
@@ -92,6 +93,18 @@ export default class LobbySelector {
     document.addEventListener('connectionLost', () => {
       this.createLobbyButton.disabled = false;
       this.joinLobbyButton.disabled = false;
+      this.joinCodeTextbox.disabled = false;
     });
+  }
+
+  joinLobby() {
+    this.createLobbyButton.disabled = true;
+    this.joinLobbyButton.disabled = true;
+    this.joinCodeTextbox.disabled = true;
+    this.audioService.playAudio('button-click');
+    // Attempt to connect to a lobby
+    this.connectionService.joinLobby(this.joinCodeTextbox.value);
+    // Reset the textbox so its empty
+    this.joinCodeTextbox.value = '';
   }
 }
