@@ -15,7 +15,7 @@ export default class MainMenu {
 
     // Initialise the parts of the main menu
     this.menuHeader = new MenuHeader();
-    this.playGame = new PlayGame(this.audioService);
+    this.playGame = new PlayGame(this.connectionService, this.audioService);
     this.lobbySelector = new LobbySelector(
       this.connectionService,
       this.audioService,
