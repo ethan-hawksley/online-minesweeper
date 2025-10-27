@@ -13,6 +13,7 @@ export default class LobbySelector {
     this.createLobbyButton = document.createElement('button');
     this.createLobbyButton.className = 'menu-button';
     this.createLobbyButton.textContent = 'Create Lobby';
+    this.createLobbyButton.disabled = this.connectionService.connected;
 
     this.createLobbyButton.addEventListener('click', () => {
       this.createLobbyButton.disabled = true;
@@ -26,10 +27,12 @@ export default class LobbySelector {
     this.joinLobbyButton = document.createElement('button');
     this.joinLobbyButton.className = 'menu-button';
     this.joinLobbyButton.textContent = 'Join Lobby';
+    this.joinLobbyButton.disabled = this.connectionService.connected;
 
     this.joinCodeTextbox = document.createElement('input');
     this.joinCodeTextbox.className = 'menu-textbox';
     this.joinCodeTextbox.placeholder = 'Enter join code...';
+    this.joinCodeTextbox.disabled = this.connectionService.connected;
 
     this.joinLobbyButton.addEventListener('click', () => {
       this.joinLobby();
