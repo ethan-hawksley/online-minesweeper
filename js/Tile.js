@@ -1,13 +1,18 @@
 export default class Tile {
-  constructor() {
+  constructor(enabled) {
     // Create HTML button for the tile
     this.element = document.createElement('button');
     this.element.className = 'tile';
     this.element.textContent = '';
+    this.element.disabled = !enabled;
 
     this.isRevealed = false;
     this.isMine = false;
     this.isFlagged = false;
+  }
+
+  enable() {
+    this.element.disabled = false;
   }
 
   revealTile(adjacentMineCount) {
