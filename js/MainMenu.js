@@ -44,7 +44,7 @@ export default class MainMenu {
     // Render the main menu
     document.getElementById('content').replaceChildren(this.element);
 
-    document.addEventListener('startingGame', () => {
+    this._onStartingGame = () => {
       const gameSettings = this.modeSelector.getGameSettings();
       // If connected, be the first player only half the time
       const isFirstPlayer =
@@ -58,7 +58,7 @@ export default class MainMenu {
       // Destructure the gameSettings
       const { mode, difficulty, width, height, mineCount, modeSettings } =
         gameSettings;
-      connectionService.startGame(
+      this.connectionService.startGame(
         mode,
         difficulty,
         width,
@@ -67,6 +67,16 @@ export default class MainMenu {
         modeSettings,
         !isFirstPlayer,
       );
-    });
+    };
+    document.addEventListener('startingGame', this._onStartingGame);
+  }
+
+  destroy() {
+    // Cleanup global listeners and elements
+    this.playGame.destroy();
+    this.lobbySelector.destroy();
+    this.menuBestScore.destroy();
+    document.removeEventListener('startingGame', this._onStartingGame);
+    this.element.remove();
   }
 }
