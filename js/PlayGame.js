@@ -7,6 +7,7 @@ export default class PlayGame {
     playGameButton.textContent = 'Play Game';
     // Assign class for consistent styling
     playGameButton.className = 'menu-button';
+    playGameButton.disabled = !e.detail.isHost;
 
     playGameButton.addEventListener('click', () => {
       // Give audio feedback
