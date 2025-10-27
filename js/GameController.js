@@ -77,6 +77,14 @@ export default class GameController {
       // When receive a revealTile packet over the network
       this.revealTile(e.detail.y, e.detail.x, false, true);
     });
+
+    document.addEventListener('flagTile', (e) => {
+      this.flagTile(e.detail.y, e.detail.x, true);
+    });
+
+    document.addEventListener('unflagTile', (e) => {
+      this.unflagTile(e.detail.y, e.detail.x);
+    });
   }
 
   createGrid() {
@@ -179,7 +187,13 @@ export default class GameController {
     // Do not reveal a tile twice
     if (selectedTile.isRevealed) return;
     // Do not reveal flagged tiles
-    if (selectedTile.isFlagged && !isForced) return;
+    if (selectedTile.isFlagged) {
+      if (isForced) {
+        selectedTile.unflagTile();
+      } else {
+        return;
+      }
+    }
 
     if (this.firstClick) {
       // Setup mines so that the first click is safe
@@ -239,17 +253,29 @@ export default class GameController {
     if (!this.active) return;
 
     const selectedTile = this.grid[y][x];
-    // Do not flag a tile that's already revealed
-    if (selectedTile.isRevealed) return;
-
     if (selectedTile.isFlagged) {
-      selectedTile.unflagTile();
+      this.unflagTile(y, x);
     } else {
-      selectedTile.flagTile();
+      this.flagTile(y, x, false);
     }
+  }
 
-    // Play sound whenever flagging and unflagging
-    this.audioService.playAudio('tile-click');
+  flagTile(y, x, isSecondary) {
+    const selectedTile = this.grid[y][x];
+    // Do not flag a tile that's already revealed
+    if (!selectedTile.isRevealed) {
+      selectedTile.flagTile(isSecondary);
+      this.audioService.playAudio('tile-click');
+    }
+  }
+
+  unflagTile(y, x) {
+    const selectedTile = this.grid[y][x];
+    // Do not unflag a tile that's already revealed
+    if (!selectedTile.isRevealed) {
+      selectedTile.flagTile(isSecondary);
+      this.audioService.playAudio('tile-click');
+    }
   }
 
   gameOver() {
