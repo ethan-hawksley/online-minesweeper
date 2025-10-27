@@ -83,18 +83,27 @@ export default class LobbySelector {
     // Add the modal to the page
     document.body.append(this.lobbyCreatedModal);
 
-    document.addEventListener('lobbyCreated', async (e) => {
+    this._onLobbyCreated = async (e) => {
       // Extract the game ID from the event details
       this.gameId = e.detail.gameId;
       this.lobbyCreatedText.textContent = `Lobby created with ID ${this.gameId}`;
       this.lobbyCreatedModal.showModal();
-    });
+    };
+    document.addEventListener('lobbyCreated', this._onLobbyCreated);
 
-    document.addEventListener('connectionLost', () => {
+    this._onConnectionLost = () => {
       this.createLobbyButton.disabled = false;
       this.joinLobbyButton.disabled = false;
       this.joinCodeTextbox.disabled = false;
-    });
+    };
+    document.addEventListener('connectionLost', this._onConnectionLost);
+  }
+
+  destroy() {
+    // Cleanup global listeners and elements
+    document.removeEventListener('lobbyCreated', this._onLobbyCreated);
+    document.removeEventListener('connectionLost', this._onConnectionLost);
+    this.lobbyCreatedModal.remove();
   }
 
   joinLobby() {
