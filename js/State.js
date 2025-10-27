@@ -16,10 +16,18 @@ export default class State {
     // React to the Start Game button being pressed
     document.addEventListener('startGame', (e) => {
       // Destructure the properties passed in the event
-      const { mode, difficulty, width, height, mineCount, modeSettings } =
-        e.detail.gameSettings;
+      const { mode, difficulty, width, height, mineCount, modeSettings, isFirstPlayer } =
+        e.detail;
       // Start the game with the passed properties
-      this.startGame(mode, difficulty, width, height, mineCount, modeSettings);
+      this.startGame(
+        mode,
+        difficulty,
+        width,
+        height,
+        mineCount,
+        modeSettings,
+        isFirstPlayer,
+      );
     });
     document.addEventListener('startMainMenu', () => {
       this.startMainMenu();
@@ -45,7 +53,15 @@ export default class State {
     ]);
   }
 
-  startGame(mode, difficulty, width, height, mineCount, modeSettings) {
+  startGame(
+    mode,
+    difficulty,
+    width,
+    height,
+    mineCount,
+    modeSettings,
+    isFirstPlayer,
+  ) {
     // Unload the main menu and load the game controller
     this.mainMenu = null;
     // Pass the settings for the game
@@ -59,6 +75,7 @@ export default class State {
       height,
       mineCount,
       modeSettings,
+      isFirstPlayer,
     );
   }
 
