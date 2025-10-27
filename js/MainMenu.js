@@ -40,16 +40,32 @@ export default class MainMenu {
       this.menuBestScore.element,
       this.settings.element,
     );
+    // this.connected must be this.connectionService.connected
 
     // Render the main menu
     document.getElementById('content').replaceChildren(this.element);
 
     document.addEventListener('startingGame', () => {
+      const gameSettings = this.modeSelector.getGameSettings();
+      // If connected, be the first player only half the time
+      const isFirstPlayer = !this.connected || Math.random() < 0.5;
       // Dispatch custom global event for the game to start. Contain the data for how the game should be played
       document.dispatchEvent(
         new CustomEvent('startGame', {
-          detail: { gameSettings: this.modeSelector.getGameSettings() },
+          detail: { isFirstPlayer, ...gameSettings },
         }),
+      );
+      // Destructure the gameSettings
+      const { mode, difficulty, width, height, mineCount, modeSettings } =
+        gameSettings;
+      connectionService.startGame(
+        mode,
+        difficulty,
+        width,
+        height,
+        mineCount,
+        modeSettings,
+        !isFirstPlayer,
       );
     });
   }
