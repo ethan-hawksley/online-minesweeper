@@ -22,18 +22,6 @@ export default class Score {
     this.score = null;
     this.interval = null;
 
-    // Use the correct behaviour for
-    switch (mode) {
-      case 'classic':
-        this.classicMode();
-        break;
-      case 'timeAttack':
-        this.timeAttackMode();
-        break;
-      default:
-        // Throw error for an invalid code
-        throw new Error(`Invalid mode: ${mode}`);
-    }
   }
 
   classicMode() {
@@ -70,6 +58,20 @@ export default class Score {
     if (this.mode === 'timeAttack') {
       // Add additional time when tiles are revealed in time attack mode
       this.score += REVEALED_TILE_TIME_BONUS;
+    }
+    if (!this.interval) {
+      // Start the timer once the first tile has been revealed
+      switch (this.mode) {
+        case 'classic':
+          this.classicMode();
+          break;
+        case 'timeAttack':
+          this.timeAttackMode();
+          break;
+        default:
+          // Throw error for an invalid code
+          throw new Error(`Invalid mode: ${mode}`);
+      }
     }
   }
 
