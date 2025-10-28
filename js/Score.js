@@ -22,6 +22,19 @@ export default class Score {
     this.score = null;
     this.interval = null;
 
+    switch (this.mode) {
+      case 'classic':
+        this.score = this.modeSettings.timeLimit;
+        this.scoreIndicator.textContent = `Time: ${this.score}`;
+        break;
+      case 'timeAttack':
+        this.score = this.modeSettings.timeLimit;
+        this.scoreIndicator.textContent = `Time: ${this.score}`;
+        break;
+      default:
+        // Throw error for an invalid code
+        throw new Error(`Invalid mode: ${mode}`);
+    }
   }
 
   classicMode() {
@@ -40,8 +53,6 @@ export default class Score {
     // Score starts at the time limit and counts down
     // The aim is to beat the board before running out of time
     // Highest score is the best
-    this.score = this.modeSettings.timeLimit;
-    this.scoreIndicator.textContent = `Time: ${this.score}`;
     // Each second, decrement the score
     this.interval = setInterval(() => {
       this.score--;
@@ -54,11 +65,6 @@ export default class Score {
   }
 
   tileRevealed() {
-    const REVEALED_TILE_TIME_BONUS = 5;
-    if (this.mode === 'timeAttack') {
-      // Add additional time when tiles are revealed in time attack mode
-      this.score += REVEALED_TILE_TIME_BONUS;
-    }
     if (!this.interval) {
       // Start the timer once the first tile has been revealed
       switch (this.mode) {
@@ -73,6 +79,12 @@ export default class Score {
           throw new Error(`Invalid mode: ${mode}`);
       }
     }
+
+    const REVEALED_TILE_TIME_BONUS = 5;
+    if (this.mode === 'timeAttack') {
+      // Add additional time when tiles are revealed in time attack mode
+      this.score += REVEALED_TILE_TIME_BONUS;
+    }
   }
 
   gameOver() {
@@ -85,5 +97,9 @@ export default class Score {
     clearInterval(this.interval);
     // See if a new best score has just been set
     this.bestScore.checkBestScore(this.score);
+  }
+
+  destroy() {
+    clearInterval(this.interval);
   }
 }
