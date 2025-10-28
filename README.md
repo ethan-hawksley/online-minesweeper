@@ -1,4 +1,4 @@
-# Online Minesweeper
+# MineDuo
 
 ## About
 
