@@ -33,7 +33,7 @@ export default class Score {
         break;
       default:
         // Throw error for an invalid code
-        throw new Error(`Invalid mode: ${mode}`);
+        throw new Error(`Invalid mode: ${this.mode}`);
     }
   }
 
@@ -76,7 +76,7 @@ export default class Score {
           break;
         default:
           // Throw error for an invalid code
-          throw new Error(`Invalid mode: ${mode}`);
+          throw new Error(`Invalid mode: ${this.mode}`);
       }
     }
 
