@@ -8,7 +8,7 @@ export default class MenuBestScore {
     this.element.className = 'menu-button';
     this.element.textContent = 'Show Best Scores';
     this.element.addEventListener('click', () => {
-      audioService.playAudio('button-click');
+      this.audioService.playAudio('button-click');
       this.displayBestScores();
     });
 
@@ -20,7 +20,7 @@ export default class MenuBestScore {
     // X representing the close button
     this.closeModalButton.textContent = 'X';
     this.closeModalButton.addEventListener('click', () => {
-      audioService.playAudio('button-click');
+      this.audioService.playAudio('button-click');
       // Close the modal when pressed
       this.bestScoresModal.close();
     });
