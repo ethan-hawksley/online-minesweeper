@@ -31,6 +31,9 @@ export default class GameController {
     this.firstClick = true;
     this.active = isFirstPlayer;
 
+    // Stores the interval for long presses
+    this.touchTimer = null;
+
     // Create div element to store HTML
     this.element = document.createElement('div');
 
@@ -134,6 +137,29 @@ export default class GameController {
         gridDataElement.addEventListener('contextmenu', (e) => {
           e.preventDefault();
           this.toggleFlag(y, x);
+        });
+
+        // When tile touched
+        gridDataElement.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          // Long press duration 500ms
+          const LONG_PRESS_DURATION = 500;
+          // If it is a long press
+          this.touchTimer = setTimeout(() => {
+            this.toggleFlag(y, x);
+            this.touchTimer = null;
+          }, LONG_PRESS_DURATION);
+        });
+
+        // When tile no longer touched
+        gridDataElement.addEventListener('touchend', (e) => {
+          e.preventDefault();
+          // If it is not a long press
+          if (this.touchTimer) {
+            // Ensure the tile is not flagged
+            clearTimeout(this.touchTimer);
+            this.revealTile(y, x, true, false);
+          }
         });
 
         gridRowElement.append(gridDataElement);
