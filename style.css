@@ -1,160 +1,170 @@
 /* Light mode colours */
 body {
-    --text-colour: #1a1d21;
-    --background-colour: #fafbfc;
-    --disabled-text-colour: #6e7781;
-    --menu-button-background-colour: #f0f2f5;
-    --menu-button-border-colour: #d0d7de;
-    --menu-button-selected-colour: #0969da;
-    --menu-button-shadow-colour: #110321;
-    --menu-modal-border-colour: #1a1d21;
-    --tile-background-colour: #f0f2f5;
-    --tile-flagged-colour: #d41059;
-    --tile-flagged-secondary-colour: #57ab5a;
-    --tile-0-adjacent-colour: #656d76;
-    --tile-1-adjacent-colour: #ffa500;
-    --tile-2-adjacent-colour: #ff8d00;
-    --tile-3-adjacent-colour: #ff4600;
-    --tile-4-adjacent-colour: #f04201;
-    --tile-5-adjacent-colour: #d03700;
-    --tile-6-adjacent-colour: #a82c00;
-    --tile-7-adjacent-colour: #8e2700;
-    --tile-8-adjacent-colour: #6c1d00;
-    --tile-mine-colour: #1a1d21;
+  --text-colour: #1a1d21;
+  --background-colour: #fafbfc;
+  --disabled-text-colour: #6e7781;
+
+  --menu-button-background-colour: #f0f2f5;
+  --menu-button-border-colour: #d0d7de;
+  --menu-button-selected-colour: #0969da;
+  --menu-button-shadow-colour: #110321;
+  --menu-modal-border-colour: #1a1d21;
+
+  --tile-background-colour: #f0f2f5;
+
+  --tile-flagged-colour: #ff4500;
+  --tile-flagged-secondary-colour: #ffc107;
+
+  --tile-0-adjacent-colour: #656d76;
+  --tile-1-adjacent-colour: #ffc107;
+  --tile-2-adjacent-colour: #ffb300;
+  --tile-3-adjacent-colour: #ffa000;
+  --tile-4-adjacent-colour: #ff8f00;
+  --tile-5-adjacent-colour: #ff7c00;
+  --tile-6-adjacent-colour: #ff6a00;
+  --tile-7-adjacent-colour: #ff5700;
+  --tile-8-adjacent-colour: #ff4500;
+  --tile-mine-colour: #d73a49;
 }
 
 /* Dark mode colours */
 body.dark-mode {
-    --text-colour: #e6edf3;
-    --background-colour: #0d1117;
-    --disabled-text-colour: #7d8590;
-    --menu-button-background-colour: #161b22;
-    --menu-button-border-colour: #30363d;
-    --menu-button-selected-colour: #539bf5;
-    --menu-button-shadow-colour: #2a2a2a;
-    --menu-modal-border-colour: #e6edf3;
-    --tile-background-colour: #161b22;
-    --tile-flagged-colour: #ff6aa3;
-    --tile-flagged-secondary-colour: #7ee787;
-    --tile-0-adjacent-colour: #6e7681;
-    --tile-1-adjacent-colour: #ffa400;
-    --tile-2-adjacent-colour: #ff8c00;
-    --tile-3-adjacent-colour: #ff4400;
-    --tile-4-adjacent-colour: #f04201;
-    --tile-5-adjacent-colour: #d03700;
-    --tile-6-adjacent-colour: #a82c00;
-    --tile-7-adjacent-colour: #8e2700;
-    --tile-8-adjacent-colour: #6c1d00;
-    --tile-mine-colour: #ffa198;
+  --text-colour: #e6edf3;
+  --background-colour: #0d1117;
+  --disabled-text-colour: #7d8590;
+
+  --menu-button-background-colour: #161b22;
+  --menu-button-border-colour: #30363d;
+  --menu-button-selected-colour: #539bf5;
+  --menu-button-shadow-colour: #2a2a2a;
+  --menu-modal-border-colour: #e6edf3;
+
+  --tile-background-colour: #161b22;
+
+  --tile-flagged-colour: #ff6347;
+  --tile-flagged-secondary-colour: #ffd700;
+
+  --tile-0-adjacent-colour: #6e7681;
+  --tile-1-adjacent-colour: #ffd700;
+  --tile-2-adjacent-colour: #ffc700;
+  --tile-3-adjacent-colour: #ffb700;
+  --tile-4-adjacent-colour: #ffa500;
+  --tile-5-adjacent-colour: #ff9100;
+  --tile-6-adjacent-colour: #ff7e00;
+  --tile-7-adjacent-colour: #ff6a00;
+  --tile-8-adjacent-colour: #ff5500;
+  --tile-mine-colour: #ffa198;
 }
 
 /* Page-wide styling */
 body {
-    /* Use readable font */
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-    color: var(--text-colour);
-    background-color: var(--background-colour);
+  /* Use readable font */
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  color: var(--text-colour);
+  background-color: var(--background-colour);
 }
 
 /* Splash text with joke under title */
 #splash-text {
-    /* Don't shift layout upon loading joke */
-    min-height: 5rem;
+  /* Don't shift layout upon loading joke */
+  min-height: 5rem;
 }
 
 /* Buttons on the main menu */
 .menu-button {
-    color: var(--text-colour);
-    background-color: var(--menu-button-background-colour);
-    /* The cursor should be a pointer when using buttons */
-    cursor: pointer;
-    margin: 3px;
-    border: 1px solid var(--menu-button-border-colour);
-    border-radius: 10px 10px;
-    box-shadow: 5px 5px 5px var(--menu-button-shadow-colour);
+  color: var(--text-colour);
+  background-color: var(--menu-button-background-colour);
+  /* The cursor should be a pointer when using buttons */
+  cursor: pointer;
+  margin: 3px;
+  border: 1px solid var(--menu-button-border-colour);
+  border-radius: 10px 10px;
+  box-shadow: 5px 5px 5px var(--menu-button-shadow-colour);
 }
 
 /* When a button is active */
 .menu-button.selected {
-    margin: 2px;
-    border: 2px solid var(--menu-button-selected-colour);
+  margin: 2px;
+  border: 2px solid var(--menu-button-selected-colour);
 }
 
 /* When an element is disabled */
 :disabled {
-    color: var(--disabled-text-colour);
-    /* Show stop sign cursor */
-    cursor: not-allowed;
+  color: var(--disabled-text-colour);
+  /* Show stop sign cursor */
+  cursor: not-allowed;
 }
 
 /* Input textboxes on the main menu */
 .menu-textbox {
-    color: var(--text-colour);
-    background-color: var(--menu-button-background-colour);
-    border: 1px solid var(--menu-button-border-colour);
-    border-radius: 10px 10px;
+  color: var(--text-colour);
+  background-color: var(--menu-button-background-colour);
+  border: 1px solid var(--menu-button-border-colour);
+  border-radius: 10px 10px;
 }
 
 /* Modal popups on the main menu */
 .menu-modal {
-    color: var(--text-colour);
-    background-color: var(--background-colour);
+  color: var(--text-colour);
+  background-color: var(--background-colour);
 }
 
 /* Default tile state */
 .tile {
-    width: 30px;
-    height: 30px;
-    background-color: var(--tile-background-colour);
+  width: 30px;
+  height: 30px;
+  background-color: var(--tile-background-colour);
 }
 
 /* When a tile is flagged */
 .tile.flagged {
-    background-color: var(--tile-flagged-colour);
+  background-color: var(--tile-flagged-colour);
 }
 
 .tile.flagged.secondary {
-    background-color: var(--tile-flagged-secondary-colour);
+  background-color: var(--tile-flagged-secondary-colour);
 }
 
 /* How many adjacent mines there are */
 .tile.revealed.mines0 {
-    background-color: var(--tile-0-adjacent-colour);
+  background-color: var(--tile-0-adjacent-colour);
 }
 
 .tile.revealed.mines1 {
-    background-color: var(--tile-1-adjacent-colour);
+  background-color: var(--tile-1-adjacent-colour);
 }
 
 .tile.revealed.mines2 {
-    background-color: var(--tile-2-adjacent-colour);
+  background-color: var(--tile-2-adjacent-colour);
 }
 
 .tile.revealed.mines3 {
-    background-color: var(--tile-3-adjacent-colour);
+  background-color: var(--tile-3-adjacent-colour);
 }
 
 .tile.revealed.mines4 {
-    background-color: var(--tile-4-adjacent-colour);
+  background-color: var(--tile-4-adjacent-colour);
 }
 
 .tile.revealed.mines5 {
-    background-color: var(--tile-5-adjacent-colour);
+  background-color: var(--tile-5-adjacent-colour);
 }
 
 .tile.revealed.mines6 {
-    background-color: var(--tile-6-adjacent-colour);
+  background-color: var(--tile-6-adjacent-colour);
 }
 
 .tile.revealed.mines7 {
-    background-color: var(--tile-7-adjacent-colour);
+  background-color: var(--tile-7-adjacent-colour);
 }
 
 .tile.revealed.mines8 {
-    background-color: var(--tile-8-adjacent-colour);
+  background-color: var(--tile-8-adjacent-colour);
 }
 
 /* When tile is a mine */
 .tile.revealed.mine {
-    background-color: var(--tile-mine-colour);
+  background-color: var(--tile-mine-colour);
 }
