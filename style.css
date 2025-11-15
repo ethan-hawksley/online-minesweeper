@@ -1,51 +1,51 @@
 /* Light mode colours */
 body {
-    --text-colour: black;
-    --background-colour: white;
-    --disabled-text-colour: #6d6d6d;
-    --menu-button-background-colour: lightgrey;
-    --menu-button-border-colour: grey;
-    --menu-button-selected-colour: red;
-    --menu-button-shadow-colour: black;
-    --menu-modal-border-colour: black;
-    --tile-background-colour: lightgrey;
-    --tile-flagged-colour: rosybrown;
-    --tile-flagged-secondary-colour: #8fbc97;
-    --tile-0-adjacent-colour: lightslategrey;
-    --tile-1-adjacent-colour: orange;
-    --tile-2-adjacent-colour: darkorange;
-    --tile-3-adjacent-colour: orangered;
+    --text-colour: #1a1d21;
+    --background-colour: #fafbfc;
+    --disabled-text-colour: #6e7781;
+    --menu-button-background-colour: #f0f2f5;
+    --menu-button-border-colour: #d0d7de;
+    --menu-button-selected-colour: #0969da;
+    --menu-button-shadow-colour: #110321;
+    --menu-modal-border-colour: #1a1d21;
+    --tile-background-colour: #f0f2f5;
+    --tile-flagged-colour: #d41059;
+    --tile-flagged-secondary-colour: #57ab5a;
+    --tile-0-adjacent-colour: #656d76;
+    --tile-1-adjacent-colour: #ffa500;
+    --tile-2-adjacent-colour: #ff8d00;
+    --tile-3-adjacent-colour: #ff4600;
     --tile-4-adjacent-colour: #f04201;
     --tile-5-adjacent-colour: #d03700;
     --tile-6-adjacent-colour: #a82c00;
     --tile-7-adjacent-colour: #8e2700;
     --tile-8-adjacent-colour: #6c1d00;
-    --tile-mine-colour: #411200;
+    --tile-mine-colour: #1a1d21;
 }
 
 /* Dark mode colours */
 body.dark-mode {
-    --text-colour: white;
-    --background-colour: black;
-    --disabled-text-colour: #adadad;
-    --menu-button-background-colour: #555555;
-    --menu-button-border-colour: #1b1b1b;
-    --menu-button-selected-colour: #9e0000;
+    --text-colour: #e6edf3;
+    --background-colour: #0d1117;
+    --disabled-text-colour: #7d8590;
+    --menu-button-background-colour: #161b22;
+    --menu-button-border-colour: #30363d;
+    --menu-button-selected-colour: #539bf5;
     --menu-button-shadow-colour: #2a2a2a;
-    --menu-modal-border-colour: white;
-    --tile-background-colour: darkgrey;
-    --tile-flagged-colour: rosybrown;
-    --tile-flagged-secondary-colour: #8fbc97;
-    --tile-0-adjacent-colour: lightslategrey;
-    --tile-1-adjacent-colour: orange;
-    --tile-2-adjacent-colour: darkorange;
-    --tile-3-adjacent-colour: orangered;
+    --menu-modal-border-colour: #e6edf3;
+    --tile-background-colour: #161b22;
+    --tile-flagged-colour: #ff6aa3;
+    --tile-flagged-secondary-colour: #7ee787;
+    --tile-0-adjacent-colour: #6e7681;
+    --tile-1-adjacent-colour: #ffa400;
+    --tile-2-adjacent-colour: #ff8c00;
+    --tile-3-adjacent-colour: #ff4400;
     --tile-4-adjacent-colour: #f04201;
     --tile-5-adjacent-colour: #d03700;
     --tile-6-adjacent-colour: #a82c00;
     --tile-7-adjacent-colour: #8e2700;
     --tile-8-adjacent-colour: #6c1d00;
-    --tile-mine-colour: #411200;
+    --tile-mine-colour: #ffa198;
 }
 
 /* Page-wide styling */
