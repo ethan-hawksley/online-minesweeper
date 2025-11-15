@@ -6,6 +6,7 @@ body {
     --menu-button-background-colour: lightgrey;
     --menu-button-border-colour: grey;
     --menu-button-selected-colour: red;
+    --menu-button-shadow-colour: black;
     --menu-modal-border-colour: black;
     --tile-background-colour: lightgrey;
     --tile-flagged-colour: rosybrown;
@@ -30,6 +31,7 @@ body.dark-mode {
     --menu-button-background-colour: #555555;
     --menu-button-border-colour: #1b1b1b;
     --menu-button-selected-colour: #9e0000;
+    --menu-button-shadow-colour: #2a2a2a;
     --menu-modal-border-colour: white;
     --tile-background-colour: darkgrey;
     --tile-flagged-colour: rosybrown;
@@ -69,6 +71,7 @@ body {
     margin: 3px;
     border: 1px solid var(--menu-button-border-colour);
     border-radius: 10px 10px;
+    box-shadow: 5px 5px 5px var(--menu-button-shadow-colour);
 }
 
 /* When a button is active */
