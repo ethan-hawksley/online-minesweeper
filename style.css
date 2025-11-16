@@ -1,7 +1,8 @@
 /* Light mode colours */
 body {
   --text-colour: #1a1d21;
-  --background-colour: #fafbfc;
+  --background-colour-start: #fafbfc;
+  --background-colour-end: #e8e8e8;
   --disabled-text-colour: #6e7781;
 
   --menu-button-background-colour: #f0f2f5;
@@ -30,7 +31,8 @@ body {
 /* Dark mode colours */
 body.dark-mode {
   --text-colour: #e6edf3;
-  --background-colour: #0d1117;
+  --background-colour-start: #0d1117;
+  --background-colour-end: #161616;
   --disabled-text-colour: #7d8590;
 
   --menu-button-background-colour: #161b22;
@@ -56,6 +58,12 @@ body.dark-mode {
   --tile-mine-colour: #ffa198;
 }
 
+/* Reset spacing */
+/** {*/
+/*  margin: 0;*/
+/*  box-sizing: border-box;*/
+/*}*/
+
 /* Page-wide styling */
 body {
   /* Use readable font */
@@ -63,7 +71,11 @@ body {
     -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica,
     Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
   color: var(--text-colour);
-  background-color: var(--background-colour);
+  min-height: 100vh;
+  background: linear-gradient(
+    var(--background-colour-start),
+    var(--background-colour-end)
+  );
 }
 
 /* Splash text with joke under title */
@@ -108,7 +120,7 @@ body {
 /* Modal popups on the main menu */
 .menu-modal {
   color: var(--text-colour);
-  background-color: var(--background-colour);
+  background-color: var(--background-colour-start);
 }
 
 /* Default tile state */
