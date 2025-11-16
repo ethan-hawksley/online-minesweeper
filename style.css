@@ -59,10 +59,10 @@ body.dark-mode {
 }
 
 /* Reset spacing */
-/** {*/
-/*  margin: 0;*/
-/*  box-sizing: border-box;*/
-/*}*/
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
 
 /* Page-wide styling */
 body {
